@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'formtools',
     'jquery',
 
+    'users',
     'home',
     'reflection',
 ]
