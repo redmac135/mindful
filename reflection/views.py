@@ -5,9 +5,16 @@ from formtools.wizard.views import SessionWizardView
 from django.contrib import messages
 
 # Create your views here.
+
+ADJECTIVE_CHOICES = (
+    (1, 'Happy'),
+    (2, 'Confident'),
+    (3, 'Excited'),
+)
+
 class FormWizardView(SessionWizardView):
     template_name = "reflection/form.html"
-    form_list = [FormReflectionOne, FormReflectionTwo]
+    form_list = [FormReflectionOne, FormReflectionTwo, ]
 
     def done(self, form_list, **kwargs):
         form_data = [form.cleaned_data for form in form_list]
