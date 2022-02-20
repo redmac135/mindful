@@ -10,10 +10,10 @@ class FormReflectionOne(forms.Form):
         fields = ['feeling']
 
 class FormReflectionTwo(forms.Form):
-    def __init__(self, adjective_choices, *args, **kwargs):
+    def __init__(self, choices, *args, **kwargs):
         super(FormReflectionTwo, self).__init__(*args, **kwargs)
-        self.fields['adjective'].choices = adjective_choices
-
+        self.fields['adjective'].choices = choices
+    
     adjective = forms.MultipleChoiceField(choices=(), widget=forms.CheckboxSelectMultiple)
     reason = forms.MultipleChoiceField(choices=REASON_CHOICES, widget=forms.CheckboxSelectMultiple)
     rose = forms.CharField(max_length=500)

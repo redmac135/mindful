@@ -1,6 +1,8 @@
 $(document).ready(function() {
-    $("#id_1-reason :input").change(function(event) {
-    console.log($("#id_1-reason :input:checked").length)
-      if ($("#id_1-reason :input:checked").length > 2) {this.checked = false;}
+    $("#id_reason :input").change(function(event) {
+    if ($("#id_reason :input:checked").length > 2) {this.checked = false;}
+    });
+    $("#id_adjective :input").change(function(event) {
+      if ($("#id_adjective :input:checked").length > 2) {this.checked = false;}
     });
   });
