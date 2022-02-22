@@ -5,9 +5,6 @@ from .forms import SignUpForm
 from .models import Profile
 
 # Create your views here.
-def update_user_data(user):
-    Profile.objects.update_or_create(user=user, defaults={'email': user.email, 'token': user.token})
-
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -20,7 +17,7 @@ def signup_view(request):
             user.token = form.cleaned_data.get('token')
 
             # Create Profile Object
-            update_user_data(user)
+            Profile.objects.update_or_create(user=user, defaults={'email': user.email, 'token': user.token})
 
             # Login to Newly Created User
             raw_password = form.cleaned_data.get('password1')
