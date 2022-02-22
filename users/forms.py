@@ -2,13 +2,16 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import RegistrationToken
+from .models import Profile, RegistrationToken
  
 class SignUpForm(UserCreationForm):  
     def clean(self):
         cleaned_data = self.cleaned_data
-        # Checking Registrating Token Validation
         token = cleaned_data.get('token')
+        username = cleaned_data.get('username')
+        email = cleaned_data.get('email')
+
+        # Checking Registrating Token Validation
         if not RegistrationToken.objects.filter(token=token).exists():
             raise ValidationError("This token doesn't exist, check your spelling")
         else:
@@ -17,6 +20,13 @@ class SignUpForm(UserCreationForm):
                 raise ValidationError("This token is no longer valid.")
             else:
                 regtoken.valid = False
+
+        # Check Username and Email Uniqueness
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("An Account with this Username Already Exists")
+        if Profile.objects.filter(email=email).exists():
+            raise ValidationError("An Account with this Email Already Exists")
+
         return cleaned_data
 
     email = forms.EmailField(required=True)
