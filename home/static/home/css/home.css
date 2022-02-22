@@ -46,12 +46,6 @@ label img {
     border-color: #ddd;
 }
   
-:checked + label:before {
-    content: "✓";
-    background-color: grey;
-    transform: scale(1);
-}
-  
 :checked + label img {
     transform: scale(0.9);
     opacity: 0.7;
