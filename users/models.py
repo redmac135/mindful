@@ -7,6 +7,9 @@ class Profile(models.Model):
     email = models.EmailField()
     token = models.CharField(max_length=9)
 
+    def __str__(self):
+        return self.user
+
 class RegistrationToken(models.Model):
     token = models.CharField(max_length=9)
     valid = models.BooleanField()
