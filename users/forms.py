@@ -4,18 +4,23 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import RegistrationToken
  
-class SignUpForm(UserCreationForm):
-    def clean_token(self):
-        if not RegistrationToken.objects.filter(token=self).exists():
+class SignUpForm(UserCreationForm):  
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        # Checking Registrating Token Validation
+        token = cleaned_data.get('token')
+        if not RegistrationToken.objects.filter(token=token).exists():
             raise ValidationError("This token doesn't exist, check your spelling")
         else:
-            regtoken = RegistrationToken.objects.get(token=self)
+            regtoken = RegistrationToken.objects.get(token=token)
             if not regtoken.valid:
                 raise ValidationError("This token is no longer valid.")
-        return self
+            else:
+                regtoken.valid = False
+        return cleaned_data
 
     email = forms.EmailField(required=True)
-    token = forms.CharField(max_length=9, required=True, validators=[clean_token])
+    token = forms.CharField(max_length=9, required=True)
 
     class Meta:
         model = User
