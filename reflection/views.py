@@ -7,9 +7,15 @@ from .choices import ADJECTIVE_CHOICES_1, ADJECTIVE_CHOICES_2, ADJECTIVE_CHOICES
 
 # Create your views here.
 
+FORMS = [('home', FormReflectionOne), ('reflection', FormReflectionTwo)]
+
+TEMPLATES = {'home': 'reflection/form.html', 'reflection': 'reflection/reflection.html'}
+
 class FormWizardView(SessionWizardView):
-    template_name = "reflection/form.html"
-    form_list = [FormReflectionOne, FormReflectionTwo, ]
+    form_list = FORMS
+
+    def get_template_names(self):
+        return [TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
         form_data = [form.cleaned_data for form in form_list]
