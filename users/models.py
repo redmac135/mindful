@@ -12,4 +12,4 @@ class RegistrationToken(models.Model):
     valid = models.BooleanField()
 
     def __str__(self):
-        self.token
+        return self.token
