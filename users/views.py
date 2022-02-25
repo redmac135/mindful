@@ -29,3 +29,6 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
+
+def dashboard_view(request):
+    return render(request, 'users/dashboard.html', {})
