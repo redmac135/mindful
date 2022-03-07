@@ -17,7 +17,7 @@ def signup_view(request):
             user.token = form.cleaned_data.get('token')
 
             # Create Profile Object
-            Profile.objects.update_or_create(user=user, defaults={'email': user.email, 'token': user.token})
+            Profile.objects.update_or_create(user=user, defaults={'email': user.email})
 
             # Login to Newly Created User
             raw_password = form.cleaned_data.get('password1')
