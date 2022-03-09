@@ -10,15 +10,16 @@ class SignUpForm(UserCreationForm):
         username = cleaned_data.get('username')
         email = cleaned_data.get('email')
 
-        # Checking Email Valid
-        if not "@ycdsbk12.ca" in email:
-            raise ValidationError("Please signup with your ycdsbk12 email")
+        if username and email:
+            # Checking Email Valid
+            if not "@ycdsbk12.ca" in email:
+                raise ValidationError({'email': "Please signup with your ycdsbk12 email"})
 
-        # Check Username and Email Uniqueness
-        if User.objects.filter(username=username).exists():
-            raise ValidationError("An Account with this Username Already Exists")
-        if Profile.objects.filter(email=email).exists():
-            raise ValidationError("An Account with this Email Already Exists")
+            # Check Username and Email Uniqueness
+            if User.objects.filter(username=username).exists():
+                raise ValidationError({'email': "An Account with this Username Already Exists"})
+            if Profile.objects.filter(email=email).exists():
+                raise ValidationError({'email': "An Account with this Email Already Exists"})
 
         return cleaned_data
 
