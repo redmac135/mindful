@@ -1,5 +1,5 @@
 from django import forms
-from .models import ReflectionEntry
+from .models import ReflectionEntry, AdjectiveChoice
 from .choices import FEELING_CHOICES, REASON_CHOICES
 
 class FormReflectionOne(forms.Form):
@@ -10,16 +10,13 @@ class FormReflectionOne(forms.Form):
         fields = ['feeling']
 
 class FormReflectionTwo(forms.Form):
-    def __init__(self, choices, *args, **kwargs):
+    def __init__(self, feeling, *args, **kwargs):
         super(FormReflectionTwo, self).__init__(*args, **kwargs)
-        self.fields['adjective'].choices = choices
+        self.fields['adjective'].choices = AdjectiveChoice.getChoices(feeling)
     
     adjective = forms.MultipleChoiceField(choices=(), widget=forms.CheckboxSelectMultiple)
     reason = forms.MultipleChoiceField(choices=REASON_CHOICES, widget=forms.CheckboxSelectMultiple)
-    rose = forms.CharField(max_length=500)
-    bud = forms.CharField(max_length=500)
-    thorn = forms.CharField(max_length=500)
 
     class Meta:
         model = ReflectionEntry
-        fields = ['adjective', 'reason', 'rose', 'bud', 'thorn']
+        fields = ['adjective', 'reason', ]

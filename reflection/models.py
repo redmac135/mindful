@@ -12,17 +12,22 @@ class ReflectionEntry(models.Model):
     feeling = models.IntegerField()
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
-    rose = models.CharField(max_length=500, blank=True)
-    bud = models.CharField(max_length=500, blank=True)
-    thorn = models.CharField(max_length=500, blank=True)
-
+    
     def __str__(self):
         return str(self.date) + " " + self.user
+    
+    class Meta:
+        ordering = ['date']
 
 class AdjectiveChoice(models.Model):
     feeling = models.IntegerField()
     order = models.IntegerField()
     adjective = models.CharField(max_length=16)
+
+    def getChoices(feeling):
+        choices_list = AdjectiveChoice.objects.filter(feeling=feeling)
+        choices = [(x.order, x.adjective) for x in choices_list]
+        return choices
 
     def __str__(self):
         return str(self.feeling) + " " + self.adjective
