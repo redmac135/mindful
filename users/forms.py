@@ -17,7 +17,7 @@ class SignUpForm(UserCreationForm):
 
             # Check Username and Email Uniqueness
             if User.objects.filter(username=username).exists():
-                raise ValidationError({'email': "An Account with this Username Already Exists"})
+                raise ValidationError({'username': "An Account with this Username Already Exists"})
             if Profile.objects.filter(email=email).exists():
                 raise ValidationError({'email': "An Account with this Email Already Exists"})
 
