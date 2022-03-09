@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.FormWizardView.as_view(), name="reflection"),
+    path('', views.reflection_formview, name="reflection"),
+    path('dashboard/', views.dashboard_view, name='dashboard')
 ]
