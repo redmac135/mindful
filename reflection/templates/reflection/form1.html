@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form1 }}
+    <input type="submit" name="ReflectionForm2" id="ReflectionForm2" value="submit">
+</form>
+{% endblock %}
