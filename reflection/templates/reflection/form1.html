@@ -1,9 +1,43 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}">
+{% endblock %}
 
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    {{ form1 }}
+  
+    <h2>{{ form1.feeling.label }}</h2>
+
+    <ul>
+        {% for subwidget in form1.feeling %}
+        <li>
+            <input type="radio"
+                name="{{ form1.feeling.name }}"
+                id="{{ subwidget.id_for_label }}"
+                value="{{ forloop.counter0|add:1 }}"
+                {% for name, value in subwidget.attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}
+                required>
+            <label for="{{ subwidget.id_for_label }}">
+                <img src="{% static 'reflection/img/blueTestCircle.png' %}" alt="Placeholder Test Image">
+                <div class="choice-label">{{ subwidget }}</div>
+            </label>
+        </li>        
+        {% endfor %}
+    </ul>
+
+    {% if form1.feeling.errors %}
+        <ul>
+            {% for error in form1.feeling.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {{ field.help_text }}
+    {{ form1.non_field_errors }}
     <input type="submit" name="ReflectionForm2" id="ReflectionForm2" value="submit">
 </form>
 {% endblock %}
