@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'jquery',
 
     'users',
-    'home',
     'reflection',
 
     'django.forms',
