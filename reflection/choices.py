@@ -34,9 +34,9 @@ ADJECTIVE_CHOICES_1 = (
 )
 
 ADJECTIVE_CHOICES_2 = (
-(1, 'Uncomfortable'),
-(2, 'Tired'),
-(3, 'Nervous'),
+	(1, 'Uncomfortable'),
+	(2, 'Tired'),
+	(3, 'Nervous'),
 	(4, 'Annoyed'),
 	(5, 'Worried'),
 	(6, 'Irritated'),
@@ -88,6 +88,5 @@ ADJECTIVE_CHOICES_5 = (
 	(10, 'Inspired'),
 	(11, 'Brave'),
 )
-
 
 ADJECTIVE_CHOICES = ADJECTIVE_CHOICES_1 + ADJECTIVE_CHOICES_2 + ADJECTIVE_CHOICES_3 + ADJECTIVE_CHOICES_4 + ADJECTIVE_CHOICES_5
