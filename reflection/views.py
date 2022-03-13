@@ -50,5 +50,5 @@ def reflection_formview(request):
 
 @login_required
 def dashboard_view(request):
-    reflections = ReflectionEntry.objects.filter(user=request.user)
+    reflections = ReflectionEntry.objects.filter(user=request.user).order_by("-date") # Redundant order function as ordering is set in Meta
     return render(request, 'reflection/dashboard.html', {'entries': reflections})

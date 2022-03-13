@@ -14,10 +14,10 @@ class ReflectionEntry(models.Model):
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
     
     def __str__(self):
-        return str(self.date) + " " + str(self.user)
+        return str(self.user) + " " + str(self.date)
     
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 class AdjectiveChoice(models.Model):
     feeling = models.IntegerField()
