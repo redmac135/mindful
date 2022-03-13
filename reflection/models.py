@@ -14,7 +14,7 @@ class ReflectionEntry(models.Model):
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
     
     def __str__(self):
-        return str(self.date) + " " + self.user
+        return str(self.date) + " " + str(self.user)
     
     class Meta:
         ordering = ['date']
