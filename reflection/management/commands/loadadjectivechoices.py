@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Creates AdjectiveChoice Objects based on choices.py'
 
     def add_arguments(self, parser):
-        parser.add_argument('-d', '--delete', action='delete_true', help='Indicates to clear existing choices')
+        parser.add_argument('-d', '--delete', action='store_true', help='Indicates to clear existing choices')
 
     def handle(self, *args, **kwargs):
         delete = kwargs['delete']
