@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import ReflectionEntry
 from .forms import FormReflectionOne, FormReflectionTwo
 
+from .choices import FEELING_ICONS
+
 # Create your views here.
 
 def reflection_formview(request):
@@ -24,7 +26,8 @@ def reflection_formview(request):
                 return render(request, 'reflection/form1.html', {'form1': form1})
         elif request.POST.get('ReflectionForm1'):
             form1 = FormReflectionOne()
-            return render(request, 'reflection/form1.html', {'form1': form1})
+            feeling_icons = FEELING_ICONS
+            return render(request, 'reflection/form1.html', {'form1': form1, 'icons': feeling_icons})
         elif request.POST.get('submit'):
             form2 = FormReflectionTwo(feeling = request.session['Data_ReflectionForm1'], data=request.POST)
             if form2.is_valid() and request.user.is_authenticated:
@@ -42,7 +45,8 @@ def reflection_formview(request):
                 
     else:
         form1 = FormReflectionOne()
-        return render(request, 'reflection/form1.html', {'form1': form1})
+        feeling_icons = FEELING_ICONS
+        return render(request, 'reflection/form1.html', {'form1': form1, 'icons': feeling_icons})
 
 @login_required
 def dashboard_view(request):

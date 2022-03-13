@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load zip %}
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}">
@@ -20,15 +21,15 @@
     <h2>How are you feeling?</h2>
 
     <ul>
-        {% for subwidget in form1.feeling %}
+        {% for subwidget, icon in form1.feeling|zip:icons %}
         <li>
             <input type="radio"
                 name="{{ form1.feeling.name }}"
                 id="{{ subwidget.id_for_label }}"
                 value="{{ forloop.counter0|add:1 }}">
             <label for="{{ subwidget.id_for_label }}">
-                <img src="{% static 'reflection/img/blueTestCircle.png' %}" alt="Placeholder Test Image">
-                <div class="choice-label">{{ subwidget }}</div>
+                <img src="{% static icon %}" alt="Placeholder Test Image">
+                <div class="choice-label">{{ subwidget|striptags|make_list|slice:'2:'|join:'' }}</div>
             </label>
         </li>        
         {% endfor %}

@@ -6,6 +6,14 @@ FEELING_CHOICES = (
     (5, 'Very Happy'),
 )
 
+FEELING_ICONS = [
+	'reflection/img/1face.png',
+	'reflection/img/2face.png',
+	'reflection/img/3face.png',
+	'reflection/img/4face.png',
+	'reflection/img/5face.png',
+]
+
 REASON_CHOICES = (
     (1, 'Family'),
     (2, 'Friends'),
