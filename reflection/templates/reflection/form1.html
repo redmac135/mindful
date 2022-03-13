@@ -17,7 +17,7 @@
 <form action="" method="post">
     {% csrf_token %}
   
-    <h2>{{ form1.feeling.label }}</h2>
+    <h2>How are you feeling?</h2>
 
     <ul>
         {% for subwidget in form1.feeling %}
@@ -25,9 +25,7 @@
             <input type="radio"
                 name="{{ form1.feeling.name }}"
                 id="{{ subwidget.id_for_label }}"
-                value="{{ forloop.counter0|add:1 }}"
-                {% for name, value in subwidget.attrs.items %}{% if value is not False %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}
-                required>
+                value="{{ forloop.counter0|add:1 }}">
             <label for="{{ subwidget.id_for_label }}">
                 <img src="{% static 'reflection/img/blueTestCircle.png' %}" alt="Placeholder Test Image">
                 <div class="choice-label">{{ subwidget }}</div>

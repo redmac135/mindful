@@ -1,7 +1,9 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load zip %}
 
 {% block links %}
+<link rel="stylesheet" href="{% static 'reflection/css/form2.css' %}">
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'reflection/js/limitChoice.js' %}"></script>
 {% endblock %}
@@ -9,8 +11,65 @@
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    {{ form2 }}
-    <input type="submit" name="ReflectionForm1" id="ReflectionForm1" value="Step 1">
-    <input type="submit" name="submit" value="Submit">
+
+    <div id="{{ form2.adjective.auto_id }}" class="form-field">
+        <h2>How would you describe how you're feeling?</h2>
+        <h4>Select a maximum of 3 choices</h4>
+
+        <ul>
+            {% for subwidget, adjective in form2.adjective|zip:adjective_choices %}
+            <li>
+                <input type="checkbox"
+                    name="{{ form2.adjective.name }}"
+                    id="{{ subwidget.id_for_label }}"
+                    value="{{ forloop.counter0|add:1 }}">
+                <label for="{{ subwidget.id_for_label }}">
+                    <div class="choice-label">{{ adjective }}</div>
+                </label>
+            </li>        
+            {% endfor %}
+        </ul>
+
+        {% if form2.adjective.errors %}
+        <ul>
+            {% for error in form2.adjective.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div id="{{ form2.reason.auto_id }}" class="form-field">
+        <h2>Why are you feeling a {{ feeling }} out of 5?</h2>
+        <h4>Select a maximum of 3 choices</h4>
+
+        <ul>
+            {% for subwidget, reason in form2.reason|zip:reason_choices %}
+            <li>
+                <input type="checkbox"
+                    name="{{ form2.reason.name }}"
+                    id="{{ subwidget.id_for_label }}"
+                    value="{{ forloop.counter0|add:1 }}">
+                <label for="{{ subwidget.id_for_label }}">
+                    <div class="choice-label">{{ reason }}</div>
+                </label>
+            </li>        
+            {% endfor %}
+        </ul>
+
+        {% if form2.reason.errors %}
+        <ul>
+            {% for error in form2.reason.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    {{ field.help_text }}
+    {{ form1.non_field_errors }}
+
+    <input type="submit" name="ReflectionForm1" id="ReflectionForm1" value="Back Home">
+    <input type="submit" name="submit" value="Submit Log">
 </form>
 {% endblock %}

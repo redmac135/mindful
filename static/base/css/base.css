@@ -1,0 +1,9 @@
+@font-face {
+    font-family: FredokaLight;
+    src: url('fonts/Fredoka-Light.ttf') format('truetype');
+}
+
+
+* {
+    font-family: FredokaLight;
+}

@@ -14,6 +14,14 @@ class FormReflectionTwo(forms.Form):
         super(FormReflectionTwo, self).__init__(*args, **kwargs)
         self.fields['adjective'].choices = AdjectiveChoice.getChoices(feeling)
     
+    def get_adjectives(self, feeling):
+        choices = AdjectiveChoice.getChoices(feeling)
+        return [choice[1] for choice in choices]
+
+    def get_reasons(self):
+        choices = REASON_CHOICES
+        return [choice[1] for choice in choices]
+    
     adjective = forms.MultipleChoiceField(choices=(), widget=forms.CheckboxSelectMultiple)
     reason = forms.MultipleChoiceField(choices=REASON_CHOICES, widget=forms.CheckboxSelectMultiple)
 

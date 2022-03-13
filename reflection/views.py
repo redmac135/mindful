@@ -15,8 +15,11 @@ def reflection_formview(request):
                     x = request.session['Data_ReflectionForm2']
                 else:
                     x = None
-                form2 = FormReflectionTwo(initial = x, feeling=request.session['Data_ReflectionForm1'])
-                return render(request, 'reflection/form2.html', {'form2': form2})
+                feeling = request.session['Data_ReflectionForm1']
+                form2 = FormReflectionTwo(initial = x, feeling=feeling)
+                adjective_choices = form2.get_adjectives(feeling=feeling)
+                reason_choices = form2.get_reasons
+                return render(request, 'reflection/form2.html', {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices})
             else:
                 return render(request, 'reflection/form1.html', {'form1': form1})
         elif request.POST.get('ReflectionForm1'):
