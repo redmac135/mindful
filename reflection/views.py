@@ -23,7 +23,11 @@ def reflection_formview(request):
                 form2 = FormReflectionTwo(initial = x, feeling=feeling)
                 adjective_choices = form2.get_adjectives(feeling=feeling)
                 reason_choices = form2.get_reasons
-                return render(request, 'reflection/form2.html', {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices})
+                if ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).exists():
+                    update = True
+                else:
+                    update = False
+                return render(request, 'reflection/form2.html', {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices, 'update': update})
             else:
                 return render(request, 'reflection/form1.html', {'form1': form1})
         elif request.POST.get('ReflectionForm1'):
@@ -37,12 +41,19 @@ def reflection_formview(request):
                 feeling = request.session['Data_ReflectionForm1']
                 adjective = data_form2.get('adjective')
                 reason = data_form2.get('reason')
-                ReflectionEntry.objects.create(
-                    user=request.user,
-                    feeling=feeling,
-                    adjective=adjective,
-                    reason=reason,
-                )
+                if ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).exists():
+                    ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).update(
+                        feeling=feeling,
+                        adjective=adjective,
+                        reason=reason,
+                    )
+                else:
+                    ReflectionEntry.objects.create(
+                        user=request.user,
+                        feeling=feeling,
+                        adjective=adjective,
+                        reason=reason,
+                    )
             return redirect('dashboard')
                 
     else:

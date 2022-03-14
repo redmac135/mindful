@@ -14,7 +14,7 @@ class ReflectionCalendar(HTMLCalendar):
         d = ''
 
         for event in reflections_per_day:
-            d += f'<img src="/static/{feeling_icons[event.feeling]}" alt="">'
+            d += f'<img src="/static/{feeling_icons[event.feeling-1]}" alt="">'
 
         if day != 0:
             return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"

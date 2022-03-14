@@ -24,9 +24,9 @@
                     id="{{ subwidget.id_for_label }}"
                     value="{{ forloop.counter0|add:1 }}">
                 <label for="{{ subwidget.id_for_label }}">
-                    <div class="choice-label">{{ adjective }}</div>
+                    <div class="choice-label noselect">{{ adjective }}</div>
                 </label>
-            </li>        
+            </li>
             {% endfor %}
         </ul>
 
@@ -51,7 +51,7 @@
                     id="{{ subwidget.id_for_label }}"
                     value="{{ forloop.counter0|add:1 }}">
                 <label for="{{ subwidget.id_for_label }}">
-                    <div class="choice-label">{{ reason }}</div>
+                    <div class="choice-label noselect">{{ reason }}</div>
                 </label>
             </li>        
             {% endfor %}
@@ -70,6 +70,10 @@
     {{ form1.non_field_errors }}
 
     <input type="submit" name="ReflectionForm1" id="ReflectionForm1" value="Back Home">
+    {% if update %}
+    <input type="submit" name="submit" value="Update Log">
+    {% else %}
     <input type="submit" name="submit" value="Submit Log">
+    {% endif %}
 </form>
 {% endblock %}
