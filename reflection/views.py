@@ -1,8 +1,10 @@
+from datetime import datetime, date
 from django.shortcuts import render, redirect
+from django.utils.safestring import mark_safe
 from django.contrib.auth.decorators import login_required
 from .models import ReflectionEntry
 from .forms import FormReflectionOne, FormReflectionTwo
-
+from .utils import ReflectionCalendar
 from .choices import FEELING_ICONS
 
 # Create your views here.
@@ -50,5 +52,15 @@ def reflection_formview(request):
 
 @login_required
 def dashboard_view(request):
-    reflections = ReflectionEntry.objects.filter(user=request.user).order_by("-date") # Redundant order function as ordering is set in Meta
-    return render(request, 'reflection/dashboard.html', {'entries': reflections})
+    d = get_date(request.GET.get('day', None))
+    cal = ReflectionCalendar(d.year, d.month)
+    html_cal = cal.formatmonth(withyear=True)
+
+    return render(request, 'reflection/dashboard.html', {'calendar': mark_safe(html_cal)})
+
+# Function for Dashboard_View
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return date(year, month, day=1)
+    return datetime.today()

@@ -1,19 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'reflection/css/dashboard.css' %}">
+{% endblock %}  
 
 {% block content %}
-
-{% if entries %}
-    {% for entry in entries %}
-        <div class="entry">
-            <div class="entry-feeling">{{ entry.feeling }}</div>
-            <div class="entry-adjective">You Felt {{ entry.adjective }}</div>
-            <div class="entry-reason">Because {{ entry.reason }}</div>
-        </div>
-    {% endfor %}
-{% else %}
-   <div>
-     <p>No items Available</p>
-   </div>
-{% endif %}
-
-{% endblock %}
+{{ calendar }}
+{% endblock %}  
