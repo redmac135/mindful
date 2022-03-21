@@ -31,3 +31,8 @@ class AdjectiveChoice(models.Model):
 
     def __str__(self):
         return str(self.feeling) + " " + self.adjective
+
+class QuoteResponse(models.Model):
+    quote = models.CharField(max_length=256)
+    author = models.CharField(max_length=32)
+    happysad = models.IntegerField()
