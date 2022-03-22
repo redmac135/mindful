@@ -55,7 +55,6 @@ def reflection_formview(request):
                         reason=reason,
                     )
             return redirect('dashboard')
-                
     else:
         form1 = FormReflectionOne()
         feeling_icons = FEELING_ICONS
@@ -72,6 +71,6 @@ def dashboard_view(request):
 # Function for Dashboard_View
 def get_date(req_day):
     if req_day:
-        year, month = (int(x) for x in req_day.split('-'))
+        year, month = map(int, req_day.split('-'))
         return date(year, month, day=1)
     return datetime.today()
