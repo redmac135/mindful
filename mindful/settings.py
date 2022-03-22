@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'multiselectfield',
     'jquery',
 
-    'users',
     'reflection',
 
     'django.forms',
@@ -134,7 +134,14 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login Redirect
+
 LOGIN_REDIRECT_URL = '/'
 
 # Form Renderer for Form Widgets
+
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
+# Password Reset Email
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
