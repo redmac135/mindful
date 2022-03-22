@@ -2,7 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
  
 class SignUpForm(UserCreationForm):  
     def clean(self):
@@ -18,12 +17,10 @@ class SignUpForm(UserCreationForm):
             # Check Username and Email Uniqueness
             if User.objects.filter(username=username).exists():
                 raise ValidationError({'username': "An Account with this Username Already Exists"})
-            if Profile.objects.filter(email=email).exists():
+            if User.objects.filter(email=email).exists():
                 raise ValidationError({'email': "An Account with this Email Already Exists"})
 
         return cleaned_data
-
-    email = forms.EmailField(required=True)
 
     class Meta:
         model = User
