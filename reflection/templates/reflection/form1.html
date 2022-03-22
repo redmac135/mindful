@@ -17,12 +17,17 @@
 
 <form action="" method="post">
     {% csrf_token %}
-  
-    <h2>How are you feeling?</h2>
 
-    <ul>
+    <div class="quote-wrapper">
+        <h3 class="quote-text">"If you ever feel down, cry more"</h3>
+        <p class="quote-author">-author</p>
+    </div>
+
+    <h2 class="center">How are you feeling?</h2>
+
+    <div class="feeling-form">
         {% for subwidget, icon in form1.feeling|zip:icons %}
-        <li>
+        <div class="feeling-choice">
             <input type="radio"
                 name="{{ form1.feeling.name }}"
                 id="{{ subwidget.id_for_label }}"
@@ -31,9 +36,9 @@
                 <img src="{% static icon %}" alt="Placeholder Test Image">
                 <div class="choice-label">{{ subwidget|striptags|make_list|slice:'2:'|join:'' }}</div>
             </label>
-        </li>        
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 
     {% if form1.feeling.errors %}
         <ul>
@@ -42,9 +47,9 @@
             {% endfor %}
         </ul>
     {% endif %}
-    
+
     {{ field.help_text }}
     {{ form1.non_field_errors }}
-    <input type="submit" name="ReflectionForm2" id="ReflectionForm2" value="submit">
+    <input class="feeling-submit" type="submit" name="ReflectionForm2" id="ReflectionForm2" value="Start your Reflection">
 </form>
 {% endblock %}

@@ -2,7 +2,7 @@ ul {
     list-style-type: none;
     white-space: nowrap;
 }
-  
+
 li {
     display: inline-block;
 }
@@ -13,7 +13,7 @@ input[type="radio"] {
 
 label {
     padding: 10px;
-    display: block;
+    display: inline-block;
     position: relative;
     margin: 10px;
     cursor: pointer;
@@ -46,7 +46,7 @@ label img {
 :checked + label {
     border-color: #ddd;
 }
-  
+
 :checked + label img {
     transform: scale(0.9);
     opacity: 0.7;
@@ -56,4 +56,33 @@ label img {
 .choice-label {
     display: flex;
     justify-content: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.quote-wrapper {
+    text-align: center;
+    padding: 20px;
+}
+
+.quote-text {
+    font-style: italic;
+}
+
+.quote-author {
+    position: relative;
+    left: 100px;
+}
+
+.feeling-form {
+    display: flex;
+    justify-content: center;
+}
+
+.feeling-submit {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
 }
