@@ -1,3 +1,42 @@
+.notice {
+    font-size: larger;
+    margin-bottom: 20px;
+}
+
+.button {
+    font-size: 15px;
+    color: var(--mindful-gray);
+    font-weight: bold;
+    -webkit-border-radius: 55;
+    -moz-border-radius: 55;
+    border-radius: 55px;
+    padding: 10px 20px 10px;
+    margin: 10px auto 5px;
+    background-color: var(--mindful-pink);
+    transition: background .2s ease;
+    border: solid #815f5e 2px;
+    box-shadow: 3px 5px 5px #99999985;
+}
+
+.button:hover {
+    background-color: var(--mindful-pink-light);
+    -webkit-box-shadow: 2px 5px 5px #99999985;
+    -moz-box-shadow: 2px 5px 5px #99999985;
+    box-shadow: 2px 5px 5px #99999985;
+    transform: translate(1px, 1px);
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
 ul {
     list-style-type: none;
     white-space: nowrap;
@@ -9,6 +48,10 @@ li {
 
 input[type="radio"] {
     display: none;
+}
+
+h2 {
+    margin: auto;
 }
 
 label {
@@ -58,22 +101,13 @@ label img:hover {
     justify-content: center;
 }
 
-.center-horizontal {
-    text-align: center;
-    justify-content: center;
-    margin: auto;
-}
-
-.widget-borders {
-    -webkit-border-radius: 25;
-    -moz-border-radius: 25;
-    border-radius: 25px;
-}
-
-.blue-widget {
+.inner-widget {
     background-color: var(--mindful-blue);
     border: solid #a0d6fd 2px;
     box-shadow: 5px 8px 8px #99999985;
+    -webkit-border-radius: 25;
+    -moz-border-radius: 25;
+    border-radius: 25px;
 }
 
 .quote-wrapper {
@@ -94,6 +128,7 @@ label img:hover {
 
 .feeling-list {
     display: flex;
+    justify-content: center;
 }
 
 h2 {
@@ -106,26 +141,14 @@ h2 {
 }
 
 input[type="submit"] {
-    font-size: 15px;
-    color: var(--mindful-gray);
-    font-weight: bold;
-    -webkit-border-radius: 55;
-    -moz-border-radius: 55;
-    border-radius: 55px;
-    padding: 10px 20px 10px;
-    background-color: var(--mindful-pink);
-    transition: background .2s ease;
     cursor: pointer !important;
-    border: solid #815f5e 2px;
-    box-shadow: 3px 5px 5px #99999985;
 }
 
-input[type="submit"]:hover {
-    background-color: var(--mindful-pink-light);
-}
-
-div.form {
-    width: min-content;
+.outer-widget {
+    text-align: center;
+    justify-content: center;
+    width: max(40%, 800px);
+    margin: 10px auto 10px;
     padding: 20px 20px 20px;
     background-color: rgb(226,249,184);
     background-color: radial-gradient(circle, rgba(226,249,184,1) 0%, rgba(194,238,112,1) 100%);

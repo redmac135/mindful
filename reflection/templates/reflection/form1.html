@@ -10,24 +10,28 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-<div class="welcome">Welcome {{ user.get_username }}</div>
-{% else %}
-<div class="notice">Notice: You are not logged in, form will not save</div>
-<a href="{% url 'login' %}">Login Here</a>
-{% endif %}
 
-<div class="form center-horizontal">
+<div class="outer-widget" id="welcome-widget">
+    {% if user.is_authenticated %}
+    <div class="welcome">Welcome {{ user.get_username }}</div>
+    {% else %}
+    <div class="notice">Notice: You are not logged in, form will not save</div>
+    <a href="{% url 'signup' %}" class="button">Register</a>
+    <a href="{% url 'login' %}" class="button">Login</a>
+    {% endif %}
+</div>
+
+<div class="outer-widget">
     <form action="" method="post">
         {% csrf_token %}
 
-        <div class="quote-wrapper widget-borders blue-widget">
+        <div class="quote-wrapper inner-widget">
             <h3 class="quote-text" id="quote-text"></h3>
             <p class="quote-author" id="quote-author"></p>
         </div>
 
-        <div class="feeling-selection center-horizontal blue-widget widget-borders">
-            <h2 class="center-horizontal">How are you feeling?</h2>
+        <div class="feeling-selection inner-widget">
+            <h2>How are you feeling?</h2>
 
             <div class="feeling-list">
                 <!-- TODO: change face icons to svg -->
@@ -54,7 +58,7 @@
 
         {{ field.help_text }}
         {{ form1.non_field_errors }}
-        <input class="feeling-submit" type="submit" name="ReflectionForm2" id="ReflectionForm2"
+        <input class="button" type="submit" name="ReflectionForm2" id="ReflectionForm2"
             value="Start your Reflection">
     </form>
 </div>
