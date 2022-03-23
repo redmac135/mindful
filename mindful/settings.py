@@ -159,4 +159,4 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'mindful.str@gmail.com'
 
 # Toggle sandbox mode (when running in DEBUG mode)
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True
