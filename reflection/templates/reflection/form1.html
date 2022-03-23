@@ -4,7 +4,8 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}">
-{% endblock %}
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'reflection/js/dailyQuote.js' %}"></script>{% endblock %}
 
 {% block content %}
 
@@ -19,8 +20,8 @@
     {% csrf_token %}
 
     <div class="quote-wrapper">
-        <h3 class="quote-text">"If you ever feel down, cry more"</h3>
-        <p class="quote-author">-author</p>
+        <h3 class="quote-text" id="quote-text"></h3>
+        <p class="quote-author" id="quote-author"></p>
     </div>
 
     <h2 class="center">How are you feeling?</h2>
