@@ -25,8 +25,8 @@ class ReflectionCalendar(HTMLCalendar):
         week = ''.join(self.formatday(d[0], events) for d in theweek)
         return f'<tr> {week} </tr>'
 
-    def formatmonth(self, withyear=True):
-        events = ReflectionEntry.objects.filter(date__year=self.year, date__month=self.month)
+    def formatmonth(self, request, withyear=True):
+        events = ReflectionEntry.objects.filter(date__year=self.year, date__month=self.month, user=request.user)
 
         cal = '<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
         cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
