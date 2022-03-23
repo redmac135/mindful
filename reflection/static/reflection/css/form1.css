@@ -58,30 +58,87 @@ label img {
     justify-content: center;
 }
 
-.center {
+.center-horizontal {
     text-align: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.widget-borders {
+    -webkit-border-radius: 25;
+    -moz-border-radius: 25;
+    border-radius: 25px;
+}
+
+.blue-widget {
+    background-color: var(--mindful-blue);
+    border: solid #a0d6fd 2px;
+    box-shadow: 5px 8px 8px #99999985;
 }
 
 .quote-wrapper {
     text-align: center;
-    padding: 20px;
+    padding: 20px 25px 20px;
+    margin: 10px 15px 25px;
+
 }
 
 .quote-text {
     font-style: italic;
+    word-wrap: break-word;
 }
 
 .quote-author {
-    position: relative;
+    text-align: right;
 }
 
-.feeling-form {
+.feeling-list {
     display: flex;
-    justify-content: center;
 }
 
-.feeling-submit {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+.zoom {
+    transition: transform .2s;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
+
+h2 {
+    padding: 5px 10px 15px;
+}
+
+.feeling-selection {
+    padding: 20px 25px 10px;
+    margin: 25px 15px 25px;
+}
+
+input[type="submit"] {
+    font-size: 15px;
+    color: var(--mindful-gray);
+    font-weight: bold;
+    -webkit-border-radius: 55;
+    -moz-border-radius: 55;
+    border-radius: 55px;
+    padding: 10px 20px 10px;
+    background-color: var(--mindful-pink);
+    transition: background .2s ease;
+    cursor: pointer !important;
+    border: solid #815f5e 2px;
+    box-shadow: 3px 5px 5px #99999985;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--mindful-pink-light);
+}
+
+div.form {
+    width: min-content;
+    padding: 20px 20px 20px;
+    background-color: rgb(226,249,184);
+    background-color: radial-gradient(circle, rgba(226,249,184,1) 0%, rgba(194,238,112,1) 100%);
+    border: solid rgb(152, 170, 118) 5px;
+    border-radius: 30px;
+    -webkit-border-radius: 30;
+    -moz-border-radius: 30;
 }
