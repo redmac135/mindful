@@ -32,7 +32,7 @@
             <div class="feeling-list">
                 <!-- TODO: change face icons to svg -->
                 {% for subwidget, icon in form1.feeling|zip:icons %}
-                <div class="feeling-choice zoom">
+                <div class="feeling-choice">
                     <input type="radio" name="{{ form1.feeling.name }}" id="{{ subwidget.id_for_label }}"
                         value="{{ forloop.counter0|add:1 }}">
                     <label for="{{ subwidget.id_for_label }}">

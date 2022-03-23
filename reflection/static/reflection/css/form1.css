@@ -43,8 +43,8 @@ label img {
     transform-origin: 50% 50%;
 }
 
-:checked + label {
-    border-color: #ddd;
+label img:hover {
+    transform: scale(1.1);
 }
 
 :checked + label img {
@@ -94,14 +94,6 @@ label img {
 
 .feeling-list {
     display: flex;
-}
-
-.zoom {
-    transition: transform .2s;
-}
-
-.zoom:hover {
-    transform: scale(1.1);
 }
 
 h2 {
