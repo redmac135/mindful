@@ -77,7 +77,8 @@ class FormReflectionView(View):
 def dashboard_view(request):
     d = get_date(request.GET.get('day', None))
     cal = ReflectionCalendar(d.year, d.month)
-    html_cal = cal.formatmonth(request, withyear=True)
+    entries = ReflectionEntry.objects.filter(date__year=d.year, date__month=d.month, user=request.user)
+    html_cal = cal.formatmonth(entries, withyear=True)
 
     return render(request, 'reflection/dashboard.html', {'calendar': mark_safe(html_cal)})
 
