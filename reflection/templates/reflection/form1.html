@@ -9,6 +9,18 @@
 <script type="text/javascript" src="{% static 'reflection/js/dailyQuote.js' %}"></script>{% endblock %}
 
 {% block content %}
+<nav
+    class="font-sans flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-white shadow sm:items-baseline w-full">
+    <div class="mb-2 sm:mb-0">
+        <a href="/#" class="text-2xl no-underline text-gray-700 hover:text-blue-dark">STR Mindfull</a>
+    </div>
+    <div>
+        <a href="/#" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">Mondays</a>
+        <a href="/#" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">About</a>
+        <a href="/#" class="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">FAQ</a>
+    </div>
+</nav>
+
 <div class="outer-widget" id="welcome-widget">
     {% if user.is_authenticated %}
     <div class="welcome">Welcome {{ user.get_username }}</div>
