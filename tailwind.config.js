@@ -4,7 +4,7 @@ module.exports = {
     content: [
         "./assets/**/*.js",
         './templates/**/*.html',
-        './reflection/templates/reflection/*.html',
+        './**/templates/**/*.html',
     ],
     theme: {
         extend: {},
