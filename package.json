@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind-watch": "tailwindcss-cli build -i ./assets/base/css/base.css -o ./static/base/css/base.css --watch",
     "tailwind": "tailwindcss-cli build -i ./assets/base/css/base.css -o ./static/base/css/base.css",
     "dev": "webpack --mode development --watch"
   },
