@@ -16,7 +16,7 @@ class FormReflectionView(View):
 
     def get(self, request, *args, **kwargs):
         return self.render_formOne(request)
-    
+
     def post(self, request, *args, **kwargs):
         if request.POST.get('ReflectionForm1'):
             return self.render_formOne(request)
@@ -24,30 +24,35 @@ class FormReflectionView(View):
             return self.render_formTwo(request)
         if request.POST.get('submit'):
             return self.submit(request)
-    
+
     def render_formOne(self, request):
         form1 = self.form_class[0]()
         return render(request, self.template_name[0], {'form1': form1, 'icons': FEELING_ICONS})
-    
+
     def render_formTwo(self, request):
         form1 = self.form_class[0](request.POST)
-        if form1.is_valid():
-            request.session['Data_ReflectionForm1'] = form1.cleaned_data.get('feeling')
-            feeling = request.session['Data_ReflectionForm1']
-            if 'Data_ReflectionForm2' in request.session:
-                form2 = FormReflectionTwo(initial = request.session['Data_ReflectionForm2'], feeling=feeling)
-            else:
-                form2 = FormReflectionTwo(feeling=feeling)
-            adjective_choices = form2.get_adjectives(feeling=feeling)
-            reason_choices = form2.get_reasons
-            if ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).exists():
-                update = True
-            else:
-                update = False
-            return render(request, self.template_name[1], {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices, 'update': update})
-        else:
+        if not form1.is_valid():
             return self.render_formOne(request)
-    
+        request.session['Data_ReflectionForm1'] = form1.cleaned_data.get('feeling')
+        feeling = request.session['Data_ReflectionForm1']
+        form2 = (
+            FormReflectionTwo(
+                initial=request.session['Data_ReflectionForm2'], feeling=feeling
+            )
+            if 'Data_ReflectionForm2' in request.session
+            else FormReflectionTwo(feeling=feeling)
+        )
+
+        adjective_choices = form2.get_adjectives(feeling=feeling)
+        reason_choices = form2.get_reasons
+        update = bool(
+            ReflectionEntry.objects.filter(
+                user=request.user, date=datetime.now()
+            ).exists()
+        )
+
+        return render(request, self.template_name[1], {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices, 'update': update})
+
     def submit(self, request):
         form2 = FormReflectionTwo(feeling = request.session['Data_ReflectionForm1'], data=request.POST)
         if not form2.is_valid():
@@ -57,12 +62,13 @@ class FormReflectionView(View):
             feeling = request.session['Data_ReflectionForm1']
             adjective = data_form2.get('adjective')
             reason = data_form2.get('reason')
-            if ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).exists():
-                ReflectionEntry.objects.filter(user=request.user, date=datetime.today()).update(
-                    feeling=feeling,
-                    adjective=adjective,
-                    reason=reason,
-                )
+            if ReflectionEntry.objects.filter(
+                user=request.user, date=datetime.now()
+            ).exists():
+                ReflectionEntry.objects.filter(
+                    user=request.user, date=datetime.now()
+                ).update(feeling=feeling, adjective=adjective, reason=reason)
+
             else:
                 ReflectionEntry.objects.create(
                     user=request.user,
@@ -87,4 +93,4 @@ def get_date(req_day):
     if req_day:
         year, month = map(int, req_day.split('-'))
         return date(year, month, day=1)
-    return datetime.today()
+    return datetime.now()
