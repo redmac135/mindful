@@ -7,7 +7,7 @@ St Robert Mindful Club Web Application
 1. Clone the rep
 2. Create mindful/.env file and populate
 3. Install npm packages: `npm install`
-4. Build nesscary packages: `npm run tailwind` and `npm run dev`
+4. Build nesscary packages: `npm run postcss` and `npm run dev`
 5. Migrate Database: `python manage.py migrate`
 6. Load fixtures: `python manage.py loaddata reflection/fixtures/choices.json`
 7. Create initial admin superuser: `python manage.py createsuperuser` 
