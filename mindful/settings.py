@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xh25rq37=cj344*=2!&wsrd%pn512bgyag0^p6%z5upc0%9t94'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -150,7 +150,7 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-SENDGRID_API_KEY = env("SENDGRID_API_KEY")
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
