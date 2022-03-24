@@ -1,5 +1,10 @@
+const purgecss = require('@fullhuman/postcss-purgecss')
+
 module.exports = {
-    content: ["./assets/**/*.{html,js}"],
+    content: [
+        "./assets/**/*.js", 
+        './templates/**/*.html'
+    ],
     theme: {
         extend: {},
     },
