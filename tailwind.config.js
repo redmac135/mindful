@@ -1,11 +1,9 @@
-const purgecss = require('@fullhuman/postcss-purgecss')
-
 module.exports = {
     content: [
         './assets/**/js/*.js',
         './templates/**/*.html',
         './**/templates/**/*.html',
-        './**/static/js/*.js',
+        './**/static/**/js/*.js',
         './node_modules/flowbite/**/*.js',
     ],
     theme: {
