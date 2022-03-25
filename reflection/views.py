@@ -1,13 +1,17 @@
 import calendar
+import requests
+import pytz
 from datetime import datetime, date, timedelta
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
+from django.utils.timezone import localtime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View, generic
-from .models import ReflectionEntry
+from .models import ReflectionEntry, DailyQuote
 from .forms import FormReflectionOne, FormReflectionTwo
 from .utils import ReflectionCalendar
 from .choices import FEELING_ICONS
+from mindful.settings import ZENQUOTES_API_KEY
 
 # Create your views here.
 
@@ -28,7 +32,14 @@ class FormReflectionView(View):
 
     def render_formOne(self, request):
         form1 = self.form_class[0]()
-        return render(request, self.template_name[0], {'form1': form1, 'icons': FEELING_ICONS})
+        date_cst = localtime(timezone=pytz.timezone('US/Central')).date()
+        print(date_cst)
+        if DailyQuote.objects.filter(date = date_cst).exists():
+            obj = DailyQuote.objects.get(date = date_cst)
+            quote = {'quote': obj.quote, 'author': obj.author}
+        else:
+            quote = self.get_quote()
+        return render(request, self.template_name[0], {'form1': form1, 'icons': FEELING_ICONS, 'quote': quote})
 
     def render_formTwo(self, request):
         form1 = self.form_class[0](request.POST)
@@ -82,6 +93,14 @@ class FormReflectionView(View):
                 )
             return redirect('dashboard')
         return redirect('home')
+    
+    def get_quote(self):
+        url = 'https://zenquotes.io/api/today/' + ZENQUOTES_API_KEY
+        response = requests.get(url).json()[0]
+        print(response)
+        quote = response['q']
+        author = response['a']
+        return {'quote': quote, 'author': author}
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
     login_url = '/accounts/login'

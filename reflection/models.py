@@ -36,3 +36,17 @@ class QuoteResponse(models.Model):
     quote = models.CharField(max_length=256)
     author = models.CharField(max_length=32)
     happysad = models.IntegerField()
+
+    def __str__(self):
+        return self.quote
+
+class DailyQuote(models.Model):
+    date = models.DateField()
+    quote = models.CharField(max_length=256)
+    author = models.CharField(max_length=32)
+
+    def __str__(self):
+        return str(self.date)
+
+    class Meta:
+        ordering = ['-date']

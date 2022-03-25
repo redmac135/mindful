@@ -4,7 +4,6 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}" />
-<script type="text/javascript" src="{% static 'reflection/js/dailyQuote.js' %}"></script>
 {% endblock %} 
 
 {% block content %}
@@ -29,8 +28,8 @@
             {% csrf_token %}
 
             <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-blue-300 bg-mindful-blue py-5 px-6">
-                <h3 class="italic break-words" id="quote-text"></h3>
-                <p class="text-right" id="quote-author"></p>
+                <h3 class="italic break-words" id="quote-text">{{ quote.quote }}</h3>
+                <p class="text-center" id="quote-author">{{ quote.author }}</p>
             </div>
 
             <div class="mx-3.5 mt-2.5 rounded-2xl border-2 border-blue-300 bg-mindful-blue py-5 px-6 mb-6">
