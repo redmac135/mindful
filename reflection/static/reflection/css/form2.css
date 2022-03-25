@@ -1,43 +1,4 @@
-label:before {
-    background-color: white;
-    color: white;
-    content: " ";
-    display: block;
-    border-radius: 50%;
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    line-height: 28px;
-    transition-duration: 0.4s;
-    transform: scale(0);
-}
-
-label > div.choice-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 150px;
-    transition-duration: 0.2s;
-    transform-origin: 50% 50%;
-}
-
-:checked + label > div.choice-label {
+input[type="checkbox"]:checked + label {
     transform: scale(0.9);
     opacity: 0.7;
-    z-index: -1;
-}
-
-/* Choices 3 Per Row Formating */
-
-ul li {
-    flex: 0 0 33.333333%;
-}
-
-label > div.choice-label {
-    border: 3px solid;
-    border-color: black;
 }

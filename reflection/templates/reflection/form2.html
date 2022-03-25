@@ -20,8 +20,8 @@
             <li class="inline-block list-none">
                 <input class="hidden" type="checkbox" name="{{ form2.adjective.name }}" id="{{ subwidget.id_for_label }}"
                     value="{{ forloop.counter0|add:1 }}">
-                <label class="p-2.5 block relative m-2.5 cursor-pointer" for="{{ subwidget.id_for_label }}">
-                    <div class="choice-label">{{ adjective }}</div>
+                <label class="p-2.5 relative m-2.5 cursor-pointer flex justify-center items-center h-10 w-36 duration-200 origin-center border-2 border-solid border-black" for="{{ subwidget.id_for_label }}">
+                    {{ adjective }}
                 </label>
             </li>
             {% endfor %}
@@ -45,8 +45,8 @@
             <li class="inline-block list-none">
                 <input class="hidden" type="checkbox" name="{{ form2.reason.name }}" id="{{ subwidget.id_for_label }}"
                     value="{{ forloop.counter0|add:1 }}">
-                <label class="p-2.5 block relative m-2.5 cursor-pointer" for="{{ subwidget.id_for_label }}">
-                    <div class="choice-label">{{ reason }}</div>
+                <label class="p-2.5 relative m-2.5 cursor-pointer flex justify-center items-center h-10 w-36 duration-200 origin-center border-2 border-solid border-black" for="{{ subwidget.id_for_label }}">
+                    {{ reason }}
                 </label>
             </li>
             {% endfor %}
