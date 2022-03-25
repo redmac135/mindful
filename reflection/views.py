@@ -38,7 +38,7 @@ class FormReflectionView(View):
             obj = DailyQuote.objects.get(date = date_cst)
             quote = {'quote': obj.quote, 'author': obj.author}
         else:
-            quote = self.get_quote()
+            quote = self.get_quote(date_cst)
         return render(request, self.template_name[0], {'form1': form1, 'icons': FEELING_ICONS, 'quote': quote})
 
     def render_formTwo(self, request):
@@ -94,12 +94,16 @@ class FormReflectionView(View):
             return redirect('dashboard')
         return redirect('home')
     
-    def get_quote(self):
+    def get_quote(self, date_cst):
         url = 'https://zenquotes.io/api/today/' + ZENQUOTES_API_KEY
         response = requests.get(url).json()[0]
-        print(response)
         quote = response['q']
         author = response['a']
+        DailyQuote.objects.create(
+            date = date_cst,
+            quote = quote,
+            author = author,
+        )
         return {'quote': quote, 'author': author}
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
