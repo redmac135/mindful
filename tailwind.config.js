@@ -2,9 +2,10 @@ const purgecss = require('@fullhuman/postcss-purgecss')
 
 module.exports = {
     content: [
-        "./assets/**/*.js",
+        './assets/**/js/*.js',
         './templates/**/*.html',
         './**/templates/**/*.html',
+        './node_modules/flowbite/**/*.js',
     ],
     theme: {
         extend: {
@@ -34,5 +35,7 @@ module.exports = {
     },
     // safelist for purgecss
     safelist: ["animate-shake"],
-    plugins: [],
+    plugins: [
+        require('flowbite/plugin')
+    ],
 }
