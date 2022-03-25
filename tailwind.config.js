@@ -7,7 +7,19 @@ module.exports = {
         './**/templates/**/*.html',
     ],
     theme: {
-        extend: {},
+        extend: {
+            "width": {
+                "200": "50rem",
+            },
+            backgroundImage: {
+                'gradient-radial': 'radial-gradient(var(--gradient-color-stops))',
+            },
+            colors: {
+                "mindful-blue": "#cde3f3",
+                "mindful-pink": "#e59490",
+                "mindful-gray": "#394759",
+            },
+        },
     },
     plugins: [],
 }
