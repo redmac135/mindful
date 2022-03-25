@@ -1108,6 +1108,18 @@ input:checked + .toggle-bg {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
+.border-mindful-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(99 124 156 / var(--tw-border-opacity));
+}
+.border-mindful-pink-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(216 96 90 / var(--tw-border-opacity));
+}
+.border-mindful-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(50 140 205 / var(--tw-border-opacity));
+}
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -1115,10 +1127,6 @@ input:checked + .toggle-bg {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.bg-mindful-pink {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 148 144 / var(--tw-bg-opacity));
 }
 .bg-blue-700 {
   --tw-bg-opacity: 1;
@@ -1139,7 +1147,19 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
-.bg-mindful-blue {
+.bg-mindful-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(162 176 195 / var(--tw-bg-opacity));
+}
+.bg-mindful-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 229 235 / var(--tw-bg-opacity));
+}
+.bg-mindful-pink-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 136 131 / var(--tw-bg-opacity));
+}
+.bg-mindful-blue-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(205 227 243 / var(--tw-bg-opacity));
 }
@@ -1288,9 +1308,13 @@ input:checked + .toggle-bg {
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
 }
-.text-mindful-gray {
+.text-mindful-gray-600 {
   --tw-text-opacity: 1;
-  color: rgb(57 71 89 / var(--tw-text-opacity));
+  color: rgb(80 99 124 / var(--tw-text-opacity));
+}
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 .no-underline {
   -webkit-text-decoration-line: none;
@@ -1410,6 +1434,11 @@ nav {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-mindful-pink-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 176 172 / var(--tw-bg-opacity));
 }
 
 .hover\:text-gray-900:hover {
