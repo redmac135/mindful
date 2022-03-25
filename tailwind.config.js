@@ -5,6 +5,7 @@ module.exports = {
         './assets/**/js/*.js',
         './templates/**/*.html',
         './**/templates/**/*.html',
+        './**/static/js/*.js',
         './node_modules/flowbite/**/*.js',
     ],
     theme: {
@@ -33,8 +34,6 @@ module.exports = {
             },
         },
     },
-    // safelist for purgecss
-    safelist: ["animate-shake"],
     plugins: [
         require('flowbite/plugin')
     ],
