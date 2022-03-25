@@ -4,7 +4,7 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}" />
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 {% include 'base/navbar.html' %}
@@ -17,7 +17,7 @@
             Notice: You are not logged in, form will not save
         </div><a href="{% url 'signup' %}" class="text-mindful-grey bg-mindful-pink border-2 border-red-400 hover:bg-pink-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 ml-2 text-center inline-flex items-center transition-colors">Register</a>
         <a href="{% url 'login' %}" class="text-mindful-grey bg-mindful-pink border-2 border-red-400 hover:bg-pink-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 ml-2 text-center inline-flex items-center transition-colors">Login</a>
-        
+
         {% endif %}
     </div>
 </div>
@@ -28,8 +28,8 @@
             {% csrf_token %}
 
             <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-blue-300 bg-mindful-blue py-5 px-6">
-                <h3 class="italic break-words" id="quote-text">{{ quote.quote }}</h3>
-                <p class="text-center" id="quote-author">{{ quote.author }}</p>
+                <h3 class="italic break-words" id="quote-text">"{{ quote.quote }}"</h3>
+                <p class="text-center" id="quote-author">- {{ quote.author }}</p>
             </div>
 
             <div class="mx-3.5 mt-2.5 rounded-2xl border-2 border-blue-300 bg-mindful-blue py-5 px-6 mb-6">
