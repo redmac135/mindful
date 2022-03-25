@@ -4,7 +4,6 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form2.css' %}">
-<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'reflection/js/limitChoice.js' %}"></script>
 {% endblock %}
 
@@ -53,7 +52,7 @@
                 <label for="{{ subwidget.id_for_label }}">
                     <div class="choice-label noselect">{{ reason }}</div>
                 </label>
-            </li>        
+            </li>
             {% endfor %}
         </ul>
 
