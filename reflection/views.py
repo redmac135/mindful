@@ -1,8 +1,9 @@
-from datetime import datetime, date
+import calendar
+from datetime import datetime, date, timedelta
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-from django.contrib.auth.decorators import login_required
-from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View, generic
 from .models import ReflectionEntry
 from .forms import FormReflectionOne, FormReflectionTwo
 from .utils import ReflectionCalendar
@@ -82,14 +83,31 @@ class FormReflectionView(View):
             return redirect('dashboard')
         return redirect('home')
 
-@login_required
-def dashboard_view(request):
-    d = get_date(request.GET.get('day', None))
-    cal = ReflectionCalendar(d.year, d.month)
-    entries = ReflectionEntry.objects.filter(date__year=d.year, date__month=d.month, user=request.user)
-    html_cal = cal.formatmonth(entries, withyear=True)
+class DashboardView(LoginRequiredMixin, generic.ListView):
+    login_url = '/accounts/login'
+    redirect_field_name = 'dashboard'
+    model = ReflectionEntry
+    template_name = 'reflection/dashboard.html'
 
-    return render(request, 'reflection/dashboard.html', {'calendar': mark_safe(html_cal)})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get('month', None))
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        cal = ReflectionCalendar(d.year, d.month)
+
+        entries = ReflectionEntry.objects.filter(
+            user=self.request.user,
+            date__year=d.year, 
+            date__month=d.month
+        )
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(entries=entries, withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        return context
 
 # Function for Dashboard_View
 def get_date(req_day):
@@ -97,3 +115,16 @@ def get_date(req_day):
         year, month = map(int, req_day.split('-'))
         return date(year, month, day=1)
     return datetime.now()
+
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month
