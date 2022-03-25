@@ -45,11 +45,14 @@ class FormReflectionView(View):
 
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
-        update = bool(
-            ReflectionEntry.objects.filter(
-                user=request.user, date=datetime.now()
-            ).exists()
-        )
+        if request.user.is_authenticated:
+            update = bool(
+                ReflectionEntry.objects.filter(
+                    user=request.user, date=datetime.now()
+                ).exists()
+            )
+        else: 
+            update = False
 
         return render(request, self.template_name[1], {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices, 'update': update})
 
