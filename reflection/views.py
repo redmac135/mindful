@@ -25,15 +25,21 @@ class FormReflectionView(View):
     def post(self, request, *args, **kwargs):
         if request.POST.get('ReflectionForm1'):
             return self.render_formOne(request)
+
         if request.POST.get('ReflectionForm2'):
-            return self.render_formTwo(request)
+            form1 = self.form_class[0](request.POST)
+            if not form1.is_valid():
+                return self.render_formOne(request)
+            request.session['Data_ReflectionForm1'] = form1.cleaned_data.get('feeling')
+            feeling = request.session['Data_ReflectionForm1']
+            return self.render_formTwo(request, feeling)
+
         if request.POST.get('submit'):
             return self.submit(request)
 
     def render_formOne(self, request):
         form1 = self.form_class[0]()
         date_cst = localtime(timezone=pytz.timezone('US/Central')).date()
-        print(date_cst)
         if DailyQuote.objects.filter(date = date_cst).exists():
             obj = DailyQuote.objects.get(date = date_cst)
             quote = {'quote': obj.quote, 'author': obj.author}
@@ -41,12 +47,7 @@ class FormReflectionView(View):
             quote = self.get_quote(date_cst)
         return render(request, self.template_name[0], {'form1': form1, 'icons': FEELING_ICONS, 'quote': quote})
 
-    def render_formTwo(self, request):
-        form1 = self.form_class[0](request.POST)
-        if not form1.is_valid():
-            return self.render_formOne(request)
-        request.session['Data_ReflectionForm1'] = form1.cleaned_data.get('feeling')
-        feeling = request.session['Data_ReflectionForm1']
+    def render_formTwo(self, request, feeling):
         form2 = (
             FormReflectionTwo(
                 initial=request.session['Data_ReflectionForm2'], feeling=feeling
@@ -54,7 +55,6 @@ class FormReflectionView(View):
             if 'Data_ReflectionForm2' in request.session
             else FormReflectionTwo(feeling=feeling)
         )
-
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
         if request.user.is_authenticated:
@@ -65,13 +65,13 @@ class FormReflectionView(View):
             )
         else: 
             update = False
-
         return render(request, self.template_name[1], {'form2': form2, 'feeling': feeling, 'adjective_choices': adjective_choices, 'reason_choices':reason_choices, 'update': update})
 
     def submit(self, request):
-        form2 = FormReflectionTwo(feeling = request.session['Data_ReflectionForm1'], data=request.POST)
+        feeling = request.session['Data_ReflectionForm1']
+        form2 = FormReflectionTwo(feeling=feeling, data=request.POST)
         if not form2.is_valid():
-            return self.render_formTwo(request)
+            return self.render_formTwo(request, feeling)
         if request.user.is_authenticated:
             data_form2 = form2.cleaned_data
             feeling = request.session['Data_ReflectionForm1']
@@ -83,7 +83,6 @@ class FormReflectionView(View):
                 ReflectionEntry.objects.filter(
                     user=request.user, date=datetime.now()
                 ).update(feeling=feeling, adjective=adjective, reason=reason)
-
             else:
                 ReflectionEntry.objects.create(
                     user=request.user,
@@ -91,8 +90,7 @@ class FormReflectionView(View):
                     adjective=adjective,
                     reason=reason,
                 )
-            return redirect('dashboard')
-        return redirect('home')
+        return redirect('dashboard')
     
     def get_quote(self, date_cst):
         url = 'https://zenquotes.io/api/today/' + ZENQUOTES_API_KEY

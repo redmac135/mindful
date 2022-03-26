@@ -1,6 +1,6 @@
 from django import forms
 from .models import ReflectionEntry, AdjectiveChoice
-from .choices import FEELING_CHOICES, REASON_CHOICES
+from .choices import FEELING_CHOICES, REASON_CHOICES, ADJECTIVE_CHOICES
 
 class FormReflectionOne(forms.Form):
     feeling = forms.ChoiceField(choices=FEELING_CHOICES, widget=forms.RadioSelect)
@@ -22,7 +22,7 @@ class FormReflectionTwo(forms.Form):
         choices = REASON_CHOICES
         return [choice[1] for choice in choices]
     
-    adjective = forms.MultipleChoiceField(choices=(), widget=forms.CheckboxSelectMultiple)
+    adjective = forms.MultipleChoiceField(choices=ADJECTIVE_CHOICES, widget=forms.CheckboxSelectMultiple)
     reason = forms.MultipleChoiceField(choices=REASON_CHOICES, widget=forms.CheckboxSelectMultiple)
 
     class Meta:
