@@ -3,12 +3,12 @@
 <nav
     class="flex flex-col w-full px-6 py-4 font-sans text-center bg-white shadow sm:flex-row sm:items-baseline sm:justify-between sm:text-left">
     <div class="mb-2 sm:mb-0">
-        <a href="{% url 'home' %}" class="text-2xl text-gray-700 no-underline hover:text-blue-dark">STR Mindfull</a>
+        <a href="{% url 'home' %}" class="text-2xl text-gray-700 no-underline hover:text-blue-600">STR Mindfull</a>
     </div>
     <div>
-        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-dark">Mondays</a>
-        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-dark">About</a>
-        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-dark">FAQ</a>
+        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">Mondays</a>
+        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">About</a>
+        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">FAQ</a>
         {% if user.is_authenticated %}
         <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-gray-700 bg-mindful-pink-300 border-2 border-mindful-pink-400 hover:bg-mindful-pink-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 ml-2 text-center inline-flex items-center transition-colors" type="button">
             {{ user }}
