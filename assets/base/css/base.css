@@ -13,7 +13,7 @@
 
 @layer components {
     .btn-pink {
-        @apply text-gray-700 bg-mindful-pink-300 border-2 border-mindful-pink-400 hover:bg-mindful-pink-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 ml-2 text-center inline-flex items-center transition-colors;
+        @apply cursor-pointer text-gray-700 text-base font-bold rounded-full px-5 py-2 my-1 mx-auto bg-mindful-pink-300 border-2 border-mindful-pink-400 hover:bg-mindful-pink-200 transition-colors;
     }
 }
 
