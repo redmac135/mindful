@@ -12,6 +12,7 @@ from .forms import FormReflectionOne, FormReflectionTwo
 from .utils import ReflectionCalendar
 from .choices import FEELING_ICONS
 from mindful.settings import ZENQUOTES_API_KEY
+from django.contrib import messages
 
 # Create your views here.
 
@@ -83,6 +84,7 @@ class FormReflectionView(View):
                 ReflectionEntry.objects.filter(
                     user=request.user, date=datetime.now()
                 ).update(feeling=feeling, adjective=adjective, reason=reason)
+                messages.success(request, 'Reflection Updated Successfully')
             else:
                 ReflectionEntry.objects.create(
                     user=request.user,
@@ -90,6 +92,10 @@ class FormReflectionView(View):
                     adjective=adjective,
                     reason=reason,
                 )
+                messages.success(request, 'Reflection Saved Successfully')
+        else:
+            messages.error(request, 'You\'re not logged in, reflection did not save')
+            
         return redirect('dashboard')
     
     def get_quote(self, date_cst):
