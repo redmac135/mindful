@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
@@ -16,8 +18,12 @@ class SignUpForm(UserCreationForm):
 
         if username and email:
             # Checking Email Valid
-            if not "@ycdsbk12.ca" in email:
+            pattern_domain = r'^[a-zA-Z0-9._-~]+@(ycdsbk12)\.ca$'
+            pattern = r'^[a-zA-Z]+\.[a-zA-Z]+(\d{0}|\d{2})@(ycdsbk12)\.ca$'
+            if not re.match(pattern_domain, email):
                 raise ValidationError({'email': "Please signup with your ycdsbk12 email"})
+            elif not re.match(pattern, email):
+                raise ValidationError({'email': 'Please enter a valid ycdsbk12 email'})
 
             # Check Username and Email Uniqueness
             if User.objects.filter(username=username).exists():
