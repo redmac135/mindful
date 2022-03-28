@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 
     'reflection',
 
+    'users.templatetags.fieldfilter',
+
     'django.forms',
 ]
 
@@ -166,6 +168,6 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = True
 
 ZENQUOTES_API_KEY = env('ZENQUOTES_API_KEY')
 
-# Django session messages 
+# Django session messages
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
