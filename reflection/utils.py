@@ -11,6 +11,7 @@ class ReflectionCalendar(HTMLCalendar):
         reflections_per_day = events.filter(date__day=day)
         feeling_icons = FEELING_ICONS
         d = ''.join(
+            f'<a href="/api/entries/{event.pk}">Details</a>'
             f'<img src="/static/{feeling_icons[event.feeling-1]}" alt="">'
             for event in reflections_per_day
         )

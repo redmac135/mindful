@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-{% include 'base/navbar.html' %}
+
 <div class="clearfix">
 	<a class="btn btn-info left" href="{% url 'dashboard' %}?{{ prev_month }}"> Previous Month </a>
 	<a class="btn btn-info right" href="{% url 'dashboard' %}?{{ next_month }}"> Next Month </a>
