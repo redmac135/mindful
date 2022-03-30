@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'jquery',
 
     'reflection',
+    'about',
 
     'users.templatetags.fieldfilter',
 
