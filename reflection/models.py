@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 
-from .choices import ADJECTIVE_CHOICES, REASON_CHOICES
+from .choices import *
+
+CHOICES_LIST = [ADJECTIVE_CHOICES_1, ADJECTIVE_CHOICES_2, ADJECTIVE_CHOICES_3, ADJECTIVE_CHOICES_4, ADJECTIVE_CHOICES_5]
 
 # Create your models here.
 
@@ -13,6 +15,20 @@ class ReflectionEntry(models.Model):
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
     
+    def choicenumbers_to_text(data):
+        feeling = data['feeling']
+        finalized_adjectives = []
+        adjective_list = CHOICES_LIST[feeling-1]
+        for adjective in data['adjective']:
+            finalized_adjectives.extend(choice[1] for choice in adjective_list if choice[0] == int(adjective))
+        finalized_reasons = []
+        for reason in data['reason']:
+            finalized_reasons.extend(choice[1] for choice in REASON_CHOICES if choice[0] == int(reason))
+        data['adjective'] = finalized_adjectives
+        data['reason'] = finalized_reasons
+
+        return data
+
     def __str__(self):
         return str(self.user) + " " + str(self.date)
     

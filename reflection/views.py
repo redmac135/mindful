@@ -16,6 +16,7 @@ from django.contrib import messages
 
 from .serializers import ReflectionEntrySerializer
 from rest_framework import viewsets, permissions
+from rest_framework.utils import serializer_helpers
 
 # Create your views here.
 
@@ -119,6 +120,17 @@ class ReflectionEntryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return ReflectionEntry.objects.filter(user=self.request.user)
+    
+    def finalize_response(self, request, response, *args, **kwargs):
+        if type(response.data) == serializer_helpers.ReturnList:
+            finalized_response = []
+            for item in response.data:
+                finalized_response.append(ReflectionEntry.choicenumbers_to_text(item))
+        else:
+            finalized_response = ReflectionEntry.choicenumbers_to_text(response.data)
+
+        response.data = finalized_response
+        return super().finalize_response(request, response, *args, **kwargs)
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
     login_url = '/accounts/login'
