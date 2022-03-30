@@ -14,6 +14,9 @@ from .choices import FEELING_ICONS
 from mindful.settings import ZENQUOTES_API_KEY
 from django.contrib import messages
 
+from .serializers import ReflectionEntrySerializer
+from rest_framework import viewsets, permissions
+
 # Create your views here.
 
 class FormReflectionView(View):
@@ -109,6 +112,13 @@ class FormReflectionView(View):
             author = author,
         )
         return {'quote': quote, 'author': author}
+
+class ReflectionEntryViewSet(viewsets.ModelViewSet):
+    serializer_class = ReflectionEntrySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return ReflectionEntry.objects.filter(user=self.request.user)
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
     login_url = '/accounts/login'

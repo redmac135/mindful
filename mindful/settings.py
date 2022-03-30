@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'users.templatetags.fieldfilter',
 
     'django.forms',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
