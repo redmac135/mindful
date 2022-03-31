@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import SignUpForm
+
+from .models import Profile
+from .forms import SignUpForm, ResendActivationEmailForm
 from django.contrib.auth.models import User
 from django.views.generic import View
 
@@ -27,27 +29,10 @@ class SignUpView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-
             user = form.save(commit=False)
-            user.is_active = False # Deactivate account till it is confirmed
             user.save()
 
-            current_site = get_current_site(request)
-            subject = 'Welcome to Mindful! Activate your Account'
-            message = render_to_string('emails/account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            send_mail(
-                subject,
-                message,
-                'mindful.str@gmail.com',
-                [user.email],
-                fail_silently=False
-            )
-
+            Profile.send_activation_email(user, request)
             messages.success(request, ('Please Confirm your email to complete registration.'))
 
             return redirect('login')
@@ -63,7 +48,6 @@ class ActivateAccountView(View):
             user = None
 
         if user is not None and account_activation_token.check_token(user, token):
-            user.is_active = True
             user.profile.email_confirmed = True
             user.save()
             login(request, user)
@@ -72,3 +56,26 @@ class ActivateAccountView(View):
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
             return redirect('home')
+
+class ResendActivationEmailView(View):
+    form_class = ResendActivationEmailForm
+    template_name = 'users/resend_activation_email.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            email = cleaned_data.get('email')
+
+            user = User.objects.get(email=email)
+
+            Profile.send_activation_email(user, request)
+            messages.success(request, ('Activation Email Successfully Sent.'))
+
+            return redirect('login')
+
+        return render(request, self.template_name, {'form': form})
