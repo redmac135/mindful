@@ -152,7 +152,7 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 # Password Reset Email
 
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
