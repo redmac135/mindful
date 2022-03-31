@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from multiselectfield import MultiSelectField
 
 from .choices import *
@@ -15,6 +16,9 @@ class ReflectionEntry(models.Model):
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
     
+    def get_absolute_url(self):
+        return reverse('entry-detail', args=[str(self.id)])
+
     def choicenumbers_to_text(data):
         feeling = data['feeling']
         finalized_adjectives = []

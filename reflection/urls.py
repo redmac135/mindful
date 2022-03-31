@@ -3,7 +3,7 @@ from .views import FormReflectionView, DashboardView, ReflectionEntryViewSet
 from .router import CustomReflectionEntryRouter
 
 router = CustomReflectionEntryRouter()
-router.register(r'entries', ReflectionEntryViewSet, basename='entries')
+router.register(r'entries', ReflectionEntryViewSet, basename='entry')
 
 urlpatterns = [
     path('', FormReflectionView.as_view(), name="home"),
