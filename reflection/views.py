@@ -17,6 +17,7 @@ from django.contrib import messages
 from .serializers import ReflectionEntrySerializer
 from rest_framework import viewsets, permissions
 from rest_framework.utils import serializer_helpers
+from rest_framework.exceptions import ErrorDetail
 
 # Create your views here.
 
@@ -122,6 +123,9 @@ class ReflectionEntryViewSet(viewsets.ModelViewSet):
         return ReflectionEntry.objects.filter(user=self.request.user)
     
     def finalize_response(self, request, response, *args, **kwargs):
+        if 'detail' in response.data:
+            if type(response.data['detail']) == ErrorDetail:
+                return super().finalize_response(request, response, *args, **kwargs)
         if type(response.data) == serializer_helpers.ReturnList:
             finalized_response = []
             for item in response.data:
