@@ -16,8 +16,7 @@
 
 .calendar td {
     width: 200px;
-    height: 150px;
-    padding: 20px 0px 0px 5px;
+    height: 100px;
 }
 
 .month {
@@ -25,12 +24,15 @@
 }
 
 .date {
+    position: relative;
     font-size: 16px;
+    top: 15px;
+    left: 5px;
 }
 
-ul {
+ul.feeling-icon {
     height: 100%;
-    padding: 0px 5px 0px 20px;
+    text-align: center;
 }
 
 a {
