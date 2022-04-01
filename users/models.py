@@ -25,7 +25,7 @@ class Profile(models.Model):
         else:
             return True
 
-    def send_activation_email(self, user, request):
+    def send_activation_email(user, request):
         current_site = get_current_site(request)
         subject = 'Welcome to Mindful! Activate your Account'
         message = render_to_string('emails/account_activation_email.html', {
