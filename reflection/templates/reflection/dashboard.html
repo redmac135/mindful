@@ -3,6 +3,7 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/dashboard.css' %}">
+<script type="text/javascript" src="{% static 'reflection/js/detailsModal.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -10,6 +11,15 @@
 <div class="clearfix">
 	<a class="btn btn-info left" href="{% url 'dashboard' %}?{{ prev_month }}"> Previous Month </a>
 	<a class="btn btn-info right" href="{% url 'dashboard' %}?{{ next_month }}"> Next Month </a>
+</div>
+
+<div id="modal" class="hidden fixed z-10 pt-28 left-0 top-0 w-full h-full overflow-auto bg-gray-800/50">
+	<div class="bg-mindful-gray-100 border-4 border-mindful-gray-500 rounded-3xl m-auto p-5 w-5/12 text-center">
+		<span class="float-right text-2xl font-bold hover:cursor-pointer hover:no-underline -mt-4" onclick="hideModal()">&times;</span>
+		<h1 class="font-bold text-lg">Reflection Summary</h1>
+		<hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full my-3">
+		<p id="modal-text"></p>
+	</div>
 </div>
 
 {{ calendar }}
