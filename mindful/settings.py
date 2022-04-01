@@ -165,6 +165,7 @@ DEFAULT_FROM_EMAIL = 'mindful.str@gmail.com'
 # Toggle sandbox mode (when running in DEBUG mode)
 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True
+SENDGRID_ECHO_TO_STDOUT = True # Echo emails to console 
 
 # zenquotes API
 
