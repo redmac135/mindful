@@ -1,8 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.timezone import localtime
 from multiselectfield import MultiSelectField
 
+import requests
+import pytz
+from datetime import datetime
+
+from mindful.settings import ZENQUOTES_API_KEY
 from .choices import *
 
 CHOICES_LIST = [ADJECTIVE_CHOICES_1, ADJECTIVE_CHOICES_2, ADJECTIVE_CHOICES_3, ADJECTIVE_CHOICES_4, ADJECTIVE_CHOICES_5]
@@ -32,6 +38,16 @@ class ReflectionEntry(models.Model):
         data['reason'] = finalized_reasons
 
         return data
+    
+    def check_existing_entry(request):
+        if request.user.is_authenticated:
+            return bool(
+                ReflectionEntry.objects.filter(
+                    user=request.user, date=datetime.now()
+                ).exists()
+            )
+        else:
+            return False
 
     def __str__(self):
         return str(self.user) + " " + str(self.date)
@@ -64,6 +80,22 @@ class DailyQuote(models.Model):
     date = models.DateField()
     quote = models.CharField(max_length=256)
     author = models.CharField(max_length=32)
+
+    def get_quote():
+        date_cst = localtime(timezone=pytz.timezone("US/Central")).date()
+        if DailyQuote.objects.filter(date=date_cst).exists():
+            obj = DailyQuote.objects.get(date=date_cst)
+            return {"quote": obj.quote, "author": obj.author}
+        url = "https://zenquotes.io/api/today/" + ZENQUOTES_API_KEY
+        response = requests.get(url).json()[0]
+        quote = response["q"]
+        author = response["a"]
+        DailyQuote.objects.create(
+            date=date_cst,
+            quote=quote,
+            author=author,
+        )
+        return {"quote": quote, "author": author}
 
     def __str__(self):
         return str(self.date)

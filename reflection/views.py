@@ -1,15 +1,11 @@
 import calendar
 from datetime import date, datetime, timedelta
 
-import pytz
-import requests
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
-from django.utils.timezone import localtime
 from django.views import View, generic
-from mindful.settings import ZENQUOTES_API_KEY
 from rest_framework import permissions, viewsets
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.utils import serializer_helpers
@@ -47,12 +43,7 @@ class FormReflectionView(View):
 
     def render_formOne(self, request):
         form1 = self.form_class[0]()
-        date_cst = localtime(timezone=pytz.timezone("US/Central")).date()
-        if DailyQuote.objects.filter(date=date_cst).exists():
-            obj = DailyQuote.objects.get(date=date_cst)
-            quote = {"quote": obj.quote, "author": obj.author}
-        else:
-            quote = self.get_quote(date_cst)
+        quote = DailyQuote.get_quote()
         return render(
             request,
             self.template_name[0],
@@ -69,14 +60,7 @@ class FormReflectionView(View):
         )
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
-        if request.user.is_authenticated:
-            update = bool(
-                ReflectionEntry.objects.filter(
-                    user=request.user, date=datetime.now()
-                ).exists()
-            )
-        else:
-            update = False
+        update = ReflectionEntry.check_existing_entry(request)
         return render(
             request,
             self.template_name[1],
@@ -118,19 +102,6 @@ class FormReflectionView(View):
             messages.error(request, "You're not logged in, reflection did not save")
 
         return redirect("dashboard")
-
-    def get_quote(self, date_cst):
-        url = "https://zenquotes.io/api/today/" + ZENQUOTES_API_KEY
-        response = requests.get(url).json()[0]
-        quote = response["q"]
-        author = response["a"]
-        DailyQuote.objects.create(
-            date=date_cst,
-            quote=quote,
-            author=author,
-        )
-        return {"quote": quote, "author": author}
-
 
 class ReflectionEntryViewSet(viewsets.ModelViewSet):
     serializer_class = ReflectionEntrySerializer
