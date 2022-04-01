@@ -4,4 +4,9 @@
 <div>
     FAQ
 </div>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit Question">
+  </form>
 {% endblock %}
