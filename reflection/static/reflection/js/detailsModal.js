@@ -29,6 +29,10 @@ function getDetails(entry) {
         $('#modal-text').html("An internal error occurred. Try again later.");
     });
     $("#modal").show();
+    $('#modal-content').css('opacity', '0');
+    $('#modal-content').animate({
+        opacity: 1
+    }, 100);
 }
 
 function hideModal() {
