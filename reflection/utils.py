@@ -18,7 +18,10 @@ class ReflectionCalendar(HTMLCalendar):
         )
 
         if day != 0:
-            class_ = ' class="istoday"' if day == today.day else ''
+            if today == None:
+                class_ = ''
+            else:
+                class_ = ' class="istoday"' if day == today.day else ''
             return f"<td{class_}><div class='date'>{day}</div><ul class='feeling-icon'> {d} </ul></td>"
         return "<td></td>"
 
