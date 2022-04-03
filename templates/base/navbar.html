@@ -7,8 +7,8 @@
     </div>
     <div>
         <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">Mondays</a>
-        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">About</a>
-        <a href="/#" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">FAQ</a>
+        <a href="{% url 'about' %}" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">About</a>
+        <a href="{% url 'faq' %}" class="ml-2 text-lg no-underline text-grey-darkest hover:text-blue-600">FAQ</a>
         {% if user.is_authenticated %}
         <button id="dropdownDefault" data-dropdown-toggle="dropdown"
             class="text-gray-700 bg-mindful-pink-300 border-2 border-mindful-pink-400 hover:bg-mindful-pink-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 ml-2 text-center inline-flex items-center transition-colors"
