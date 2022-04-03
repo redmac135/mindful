@@ -145,7 +145,7 @@ class DashboardView(LoginRequiredMixin, generic.ListView):
         )
 
         # Call the formatmonth method, which returns our calendar as a table
-        html_cal = cal.formatmonth(entries=entries, withyear=True)
+        html_cal = cal.formatmonth(entries=entries, today=date.today(), withyear=True)
         context["calendar"] = mark_safe(html_cal)
         return context
 

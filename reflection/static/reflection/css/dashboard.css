@@ -16,7 +16,7 @@
 
 .calendar td {
     width: 200px;
-    height: 100px;
+    height: 120px;
 }
 
 .month {
@@ -58,4 +58,10 @@ a {
 
 .clearfix {
     margin: 15px;
+}
+
+/* Istoday */
+
+.istoday {
+    background-color: yellow;
 }
