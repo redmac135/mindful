@@ -5,6 +5,7 @@ from django.utils.timezone import localtime
 from multiselectfield import MultiSelectField
 
 import requests
+import random
 import pytz
 from datetime import datetime
 
@@ -87,9 +88,15 @@ class DailyQuote(models.Model):
             obj = DailyQuote.objects.get(date=date_cst)
             return {"quote": obj.quote, "author": obj.author}
         url = "https://zenquotes.io/api/today/" + ZENQUOTES_API_KEY
-        response = requests.get(url).json()[0]
-        quote = response["q"]
-        author = response["a"]
+        try:
+            response = requests.get(url).json()[0]
+            quote = response["q"]
+            author = response["a"]
+        except:
+            random_list = list(DailyQuote.objects.all())
+            response = random.choice(random_list)
+            quote = response.quote
+            author = response.author
         DailyQuote.objects.create(
             date=date_cst,
             quote=quote,
