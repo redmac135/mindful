@@ -18,7 +18,8 @@ class ReflectionCalendar(HTMLCalendar):
         )
 
         if day != 0:
-            return f"<td{' class=\"idtoday\"' if day == today.day else ''}><div class='date'>{day}</div><ul class='feeling-icon'> {d} </ul></td>"
+            class_ = ' class="istoday"' if day == today.day else ''
+            return f"<td{class_}><div class='date'>{day}</div><ul class='feeling-icon'> {d} </ul></td>"
         return "<td></td>"
 
     def formatweek(self, theweek, events, today):
