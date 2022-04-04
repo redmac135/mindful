@@ -1,0 +1,26 @@
+[
+    {
+        "model": "about.DefaultQuestion",
+        "pk": 1,
+        "fields": {
+            "question": "sample question 1",
+            "answer": "samples answer 1"
+        }
+    },
+    {
+        "model": "about.DefaultQuestion",
+        "pk": 2,
+        "fields": {
+            "question": "sample question 2",
+            "answer": "samples answer 2"
+        }
+    },
+    {
+        "model": "about.DefaultQuestion",
+        "pk": 3,
+        "fields": {
+            "question": "sample question 3",
+            "answer": "samples answer 3"
+        }
+    }
+]
