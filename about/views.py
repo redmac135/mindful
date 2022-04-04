@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from django.contrib import messages
 
-from .models import Question
+from .models import Question, DefaultQuestion
 from .forms import QuestionForm
 
 # Create your views here.
@@ -18,8 +18,8 @@ class FAQView(View):
 
     def get(self, request):
         form = self.form_class()
-        return render(request, self.template_name, {"form": form})
-    
+        return render(request, self.template_name, {"form": form, "questions": DefaultQuestion.objects.all()})
+
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():

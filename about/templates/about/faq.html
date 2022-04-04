@@ -2,11 +2,16 @@
 
 {% block content %}
 <div>
-    FAQ
+	FAQ
+</div>
+<div>
+	{% for q in questions %}
+	<div>{{ q.question }}</div>
+	{% endfor %}
 </div>
 <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit Question">
-  </form>
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit Question">
+</form>
 {% endblock %}
