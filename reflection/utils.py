@@ -7,7 +7,7 @@ class ReflectionCalendar(HTMLCalendar):
     def __init__(self, year=None, month=None):
         self.year = year
         self.month = month
-        super(ReflectionCalendar, self).__init__()
+        super(ReflectionCalendar, self).__init__(firstweekday=6) # 6 = Sunday
 
     def formatday(self, day, events, today):
         reflections_per_day = events.filter(date__day=day)
