@@ -21,7 +21,7 @@ class ReflectionEntry(models.Model):
     feeling = models.IntegerField()
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
-    
+
     def get_absolute_url(self):
         return reverse('entry-detail', args=[str(self.id)])
 
@@ -38,20 +38,17 @@ class ReflectionEntry(models.Model):
         data['reason'] = finalized_reasons
 
         return data
-    
+
     def check_existing_entry(request):
-        if request.user.is_authenticated:
-            return bool(
+        return request.user.is_authenticated and bool(
                 ReflectionEntry.objects.filter(
                     user=request.user, date=datetime.now()
                 ).exists()
             )
-        else:
-            return False
 
     def __str__(self):
         return str(self.user) + " " + str(self.date)
-    
+
     class Meta:
         ordering = ['-date']
 
