@@ -5,8 +5,15 @@ from .models import Question
 # TODO: only allow question to be submitted if user is logged in
 class QuestionForm(forms.Form):
     email = forms.EmailField()
-    question = forms.CharField(label="Question", max_length=300)
+    question = forms.CharField(
+        label="Question",
+        max_length=300,
+        widget=forms.Textarea(attrs={"rows": 6, "cols": 22, "style": "resize:none;"}),
+    )
 
     class Meta:
         model = Question
-        fields = ['email', 'question', ]
+        fields = [
+            "email",
+            "question",
+        ]

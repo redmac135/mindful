@@ -52,6 +52,7 @@ Load fixtures:
 
 ```bash
 python manage.py loaddata reflection/fixtures/choices.json
+python manage.py loaddata about/fixtures/default_questions.json
 ```
 
 Create initial admin user:

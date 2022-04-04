@@ -39,5 +39,5 @@ class FAQView(View):
                     question=question
                 )
             messages.success(request, ('Question sent successfully, we\'ll get back to you soon'))
-            return redirect('home')
+            return redirect('faq')
         return render(request, self.template_name, {"form": form})
