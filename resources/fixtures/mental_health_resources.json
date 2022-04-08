@@ -1,0 +1,262 @@
+[
+    {
+        "model": "resources.Resource",
+        "pk": 1,
+        "fields": {
+            "name": "Canada suicide prevention hotline",
+            "description": "crisis helpline - available by call or text",
+            "link": "https://www.crisisservicescanada.ca/en/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 2,
+        "fields": {
+            "name": "Kids help phone ",
+            "description": "24/7 helpline - available through call, facebook messenger or a live chat found on the website",
+            "link": "https://kidshelpphone.ca/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 3,
+        "fields": {
+            "name": "Youthspace",
+            "description": "crisis and emotions support chat service - text and online",
+            "link": "https://youthspace.ca/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 4,
+        "fields": {
+            "name": "Gerstein Centre",
+            "description": "24/7 crisis support via telephone - mobile crisis team may come and pick you up. Crisis beds available for short stays",
+            "link": "https://gersteincentre.org/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 5,
+        "fields": {
+            "name": "Trans lifeline",
+            "description": "a peer support phone line - primarily for trans and trans questioning people, but anyone else can call (just make sure to ask for the family and friends line)",
+            "link": "https://translifeline.org/hotline/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 6,
+        "fields": {
+            "name": "Youthline",
+            "description": "LGBTQ+ helpline - available via call or live chat, peer supporters to have a conversation with, they aren't counsellors",
+            "link": "https://www.youthline.ca/",
+            "resource_t": "hotline"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 7,
+        "fields": {
+            "name": "What's up? Walk in!",
+            "description": "short term counselling services available by phone or video call",
+            "link": "https://www.whatsupwalkin.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 8,
+        "fields": {
+            "name": "Central Toronto Wellness Hub",
+            "description": "walk in counselling via phone or zoom - call required in order to access a session",
+            "link": "https://youthhubs.ca/en/sites/central-toronto/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 9,
+        "fields": {
+            "name": "Youthlink",
+            "description": "both walk-in and ongoing online counselling options available - via video conferencing, call required to book sessions",
+            "link": "https://youthlink.ca/services/ongoing_counselling/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 10,
+        "fields": {
+            "name": "Strides Toronto",
+            "description": "ongoing counselling (3-5 months) offered - number provided is for an intake worker who will direct you to the service you need",
+            "link": "https://stridestoronto.ca/programs/community-counselling/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 11,
+        "fields": {
+            "name": "Central Toronto Youth Services ",
+            "description": "both virtual and in-person services available - counselling and LGBTQ+ youth support, call for more information",
+            "link": "https://ctys.org/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 12,
+        "fields": {
+            "name": "Yorktown Family Services ",
+            "description": "phone + virtual counselling - ongoing therapy for 8-12 sessions within 15 weeks of service",
+            "link": "https://www.yorktownfamilyservices.com/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 13,
+        "fields": {
+            "name": "Hong Fook Mental Health Association ",
+            "description": "walk-in counselling avaible, Short term virtual counselling of 4-6 sessions within 5 days (call or email to schedule a session) - primarily for asian identifying youth",
+            "link": "https://www.hongfook.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 14,
+        "fields": {
+            "name": "Mood Disorders Association of Ontario",
+            "description": "structured peer support + counselling and drop in one-on-one support available through phone or video call",
+            "link": "https://mooddisorders.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 15,
+        "fields": {
+            "name": "Bayridge Counselling Centres",
+            "description": "Virtual group workshops led by experienced therapists - groups vary in topics",
+            "link": "https://www.bayridgecounsellingcentres.ca/online-group-therapy/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 16,
+        "fields": {
+            "name": "TeleCBT",
+            "description": "phone + virtual counselling (covered by OHIP) - duration will be discussed with your therapist, email info@telecbt.ca to sign up",
+            "link": "https://telecbt.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 17,
+        "fields": {
+            "name": "Wellness and Emotional Support (WES) for youth online",
+            "description": "email and live chat counselling services available - good confidential option for those worried about privacy",
+            "link": "https://wesforyouthonline.ca/virtual-counselling-2/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 18,
+        "fields": {
+            "name": "CouchMD",
+            "description": "free phone consultation with a doctor (covered by OHIP) - furthur support will be given after consultation",
+            "link": "https://www.couchmd.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 19,
+        "fields": {
+            "name": "WoodGreen Walk in Counselling",
+            "description": "phone + virtual counselling - students aged under 16 require parental consent, call required to access services ",
+            "link": "https://www.woodgreen.org/programs/walk-in-counselling-wic",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 20,
+        "fields": {
+            "name": "Friends of Ruby ",
+            "description": "space for LGBTQ+ youth - mental health services, practical supports and housing",
+            "link": "https://www.friendsofruby.ca/",
+            "resource_t": "counselling"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 21,
+        "fields": {
+            "name": "BounceBack",
+            "description": "free skill building program to manage mild/moderate depression and stress through videos, activities, workbooks, etc. - there’s the option to work with a coach over 6 phone sessions",
+            "link": "https://bouncebackontario.ca/what-is-bounceback-youth/",
+            "resource_t": "cbt"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 22,
+        "fields": {
+            "name": "MindBeacon",
+            "description": "begin with taking an assessment - an assigned therapist will make a 6-12 week personalized plan for readings/activities and checks up on you around once every two days - you can access your resources for up to a year(uses CBT), for students 16+ (covered by OHIP)",
+            "link": "https://info.mindbeacon.com/btn542",
+            "resource_t": "cbt"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 23,
+        "fields": {
+            "name": "AbilitiCBT",
+            "description": "comprised of 10 modules with activities, videos, and assignments based on cognitive behavioral therapy - an assigned therapist monitors your progress and checks in occasionally you can access your resources after the program ends, for students 16+",
+            "link": "https://myicbt.com/home",
+            "resource_t": "cbt"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 24,
+        "fields": {
+            "name": "Wellness Together Canada",
+            "description": "regular self-assessments to track progress, self guided courses and apps, online community, and one-on-one counseling - basically, making a mental toolkit for yourself!",
+            "link": "https://ca.portal.gs/",
+            "resource_t": "cbt"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 25,
+        "fields": {
+            "name": "CIMHS",
+            "description": "an 8 session free interactive therapy program for depression - based on CBT - no therapist check-ins",
+            "link": "https://www.cimhs.com/",
+            "resource_t": "cbt"
+        }
+    },
+    {
+        "model": "resources.Resource",
+        "pk": 26,
+        "fields": {
+            "name": "Online Therapy Unit",
+            "description": "for depression/anxiety, uses CBT techniques - therapist checks progress at a set time every week.",
+            "link": "https://www.onlinetherapyuser.ca/wellbeing-program",
+            "resource_t": "cbt"
+        }
+    }
+]

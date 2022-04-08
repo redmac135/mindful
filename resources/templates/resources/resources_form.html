@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block title %}STR Mindful | Resources{% endblock %}
+
+{% block content %}
+<div class="flex justify-center text-center">
+    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 rounded-3xl">
+        <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6">
+            <h1 class="font-bold text-lg">Resouces</h1>
+        </div>
+        <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 p-6">
+            <a href="?t=all"
+                class="rounded-md w-36 p-2.5 h-10 bg-amber-300 m-2 border-2 border-solid border-yellow-400">View all
+                resources</a>
+            <hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full m-5">
+            <a href="?t=hotlines"
+                class="rounded-md w-36 p-2.5 h-10 bg-amber-300 m-2 border-2 border-solid border-yellow-400">Hotlines</a>
+            <a href="?t=counselling"
+                class="rounded-md w-36 p-2.5 h-10 bg-amber-300 m-2 border-2 border-solid border-yellow-400">Online
+                Counselling</a>
+            <a href="?t=cbt"
+                class="rounded-md w-36 p-2.5 h-10 bg-amber-300 m-2 border-2 border-solid border-yellow-400">Online CBT
+                Courses</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
