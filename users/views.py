@@ -47,10 +47,9 @@ class ActivateAccountView(View):
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
-            return redirect('home')
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
-            return redirect('home')
+        return redirect('home')
 
 class ResendActivationEmailView(View):
     form_class = ResendActivationEmailForm

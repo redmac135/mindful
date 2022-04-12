@@ -1,7 +1,5 @@
 from django import forms
 
-import re
-
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -46,7 +44,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2', )
-        labels = {'email': 'K12 Email', }
+        labels = {'email': 'Email', }
 
 class ResendActivationEmailForm(forms.Form):
     email = forms.EmailField(required=True)
@@ -65,6 +63,6 @@ class ResendActivationEmailForm(forms.Form):
             check_last_sent = profile.check_last_sent(timezone.now())
             if not check_last_sent == True:
                 formated_time = check_last_sent.strftime("%A %I:%M:%S %p")
-                raise ValidationError({'email': f"You can only send one confirmation email every 12 hours, the next time you can send an email is {formated_time}"})
+                raise ValidationError({'email': f"You can only send one confirmation email every 2 hours, the next time you can send an email is {formated_time}"})
                 
         return cleaned_data
