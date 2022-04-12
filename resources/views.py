@@ -18,7 +18,7 @@ class ResourcesView(View):
                 "resources/resources_list.html",
                 {"resources": Resource.objects.all()},
             )
-        if t in {"hotline", "counselling", "cbt"}:
+        if t in {"hotlines", "counselling", "cbt"}:
             return render(
                 request,
                 "resources/resources_list.html",

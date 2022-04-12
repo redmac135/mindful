@@ -16,7 +16,7 @@
             "name": "Kids help phone ",
             "description": "24/7 helpline - available through call, facebook messenger or a live chat found on the website",
             "link": "https://kidshelpphone.ca/",
-            "resource_t": "hotline"
+            "resource_t": "hotlines"
         }
     },
     {
@@ -26,7 +26,7 @@
             "name": "Youthspace",
             "description": "crisis and emotions support chat service - text and online",
             "link": "https://youthspace.ca/",
-            "resource_t": "hotline"
+            "resource_t": "hotlines"
         }
     },
     {
@@ -36,7 +36,7 @@
             "name": "Gerstein Centre",
             "description": "24/7 crisis support via telephone - mobile crisis team may come and pick you up. Crisis beds available for short stays",
             "link": "https://gersteincentre.org/",
-            "resource_t": "hotline"
+            "resource_t": "hotlines"
         }
     },
     {
@@ -46,7 +46,7 @@
             "name": "Trans lifeline",
             "description": "a peer support phone line - primarily for trans and trans questioning people, but anyone else can call (just make sure to ask for the family and friends line)",
             "link": "https://translifeline.org/hotline/",
-            "resource_t": "hotline"
+            "resource_t": "hotlines"
         }
     },
     {
@@ -56,7 +56,7 @@
             "name": "Youthline",
             "description": "LGBTQ+ helpline - available via call or live chat, peer supporters to have a conversation with, they aren't counsellors",
             "link": "https://www.youthline.ca/",
-            "resource_t": "hotline"
+            "resource_t": "hotlines"
         }
     },
     {
