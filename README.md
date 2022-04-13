@@ -4,8 +4,7 @@ St Robert Mindful Club Web Application
 
 ## Required Packages
 
-- Python 3.x
-- NVM, Node.js, NPM
+- Docker-compose
 
 ## Installation
 
