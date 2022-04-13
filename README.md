@@ -16,56 +16,23 @@ git clone https://github.com/redmac135/mindful.git
 cd mindful
 ```
 
-Create a `mindful/.env` file and fill out correct information:
+Create a copy of `envtemplate.txt` name it `.env` and fill out correct information:
 
 ```bash
-cd mindful
+cp envtemplate.txt .env
 touch .env
-cat .env
->>> SECRET_KEY=YOUR_SECRET_KEY
->>> SENDGRID_API_KEY=YOUR_SENDGRIND_API_KEY
->>> ZENQUOTES_API_KEY=YOUR_ZENQUOTES_API_KEY
-cd ..
 ```
 
-Install Python packages:
+Create Docker Images and Run
 
 ```bash
-pip install -r requirements.txt
+docker-compose up --build -d
 ```
 
-Install and build npm packages:
-
-```bash
-npm install
-npm run postcss
-npm run dev
-```
-
-Migrate database:
-
-```bash
-python manage.py migrate
-```
-
-Load fixtures:
-
-```bash
-python manage.py loaddata reflection/fixtures/choices.json
-python manage.py loaddata about/fixtures/default_questions.json
-python manage.py loaddata resources/fixtures/mental_health_resources.json
-```
-
-Create initial admin user:
+Create initial admin user in dg01 instance cli:
 
 ```bash
 python manage.py createsuperuser
-```
-
-Run server:
-
-```bash
-python manage.py runserver
 ```
 
 ## Usage
