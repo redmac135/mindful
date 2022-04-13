@@ -11,6 +11,7 @@ django-environ==0.8.1
 django-jquery==3.1.0
 django-multiselectfield==0.1.12
 djangorestframework==3.13.1
+dj-database-url==0.5.0
 docker==5.0.3
 docker-compose==1.29.2
 dockerpty==0.4.1
@@ -35,3 +36,4 @@ texttable==1.6.4
 tzdata==2022.1
 urllib3==1.26.9
 websocket-client==0.59.0
+whitenoise==6.0.0
