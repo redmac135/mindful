@@ -12,7 +12,9 @@ services:
     depends_on:
       - web
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./config/web/Dockerfile
     container_name: dg01
     command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn mindful.wsgi -b 0.0.0.0:8000"
     depends_on:
