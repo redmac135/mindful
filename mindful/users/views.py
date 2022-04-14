@@ -44,12 +44,12 @@ class ActivateAccountView(View):
 
         if user is not None and account_activation_token.check_token(user, token):
             user.profile.email_confirmed = True
-            user.save()
+            user.profile.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
-        return redirect('home')
+        return redirect('login')
 
 class ResendActivationEmailView(View):
     form_class = ResendActivationEmailForm
