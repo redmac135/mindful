@@ -11,8 +11,6 @@ then
     echo "PostgreSQL started"
 fi
 
-export DEBUG = True
-
 python manage.py flush --no-input
 python manage.py makemigrations
 python manage.py migrate
