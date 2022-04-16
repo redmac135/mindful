@@ -14,6 +14,7 @@ from pathlib import Path
 import dj_database_url
 
 import environ
+import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -28,7 +29,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG')
+if os.getenv('ONHEROKU'):
+    DEBUG = False
+else:
+    DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
