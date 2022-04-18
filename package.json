@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postcss": "postcss ./assets/base/css/base.css -o ./static/base/css/base.css",
-    "postcss-dev": "postcss ./assets/base/css/base.css -o ./static/base/css/base.css --watch",
+    "postcss": "postcss ./mindful/assets/base/css/base.css -o ./mindful/static/base/css/base.css",
+    "postcss-dev": "postcss ./mindful/assets/base/css/base.css -o ./mindful/static/base/css/base.css --watch",
     "dev": "webpack --mode development --watch"
   },
   "repository": {
