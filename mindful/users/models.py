@@ -1,14 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-import datetime
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
+
+import datetime
+from reflection.models import ReflectionEntry
 from .tokens import account_activation_token
 from django.core.mail import send_mail
 
@@ -16,7 +16,26 @@ from django.core.mail import send_mail
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
-    last_sent_confirmation = models.DateTimeField(auto_now_add=True)
+    last_sent_confirmation = models.DateField(auto_now_add=True)
+    streak = models.IntegerField(null=True)
+
+    def update_streak(self, increment=False):
+        currentdate = datetime.datetime.today().date()
+        if ReflectionEntry.objects.filter(user=self.user).exists():
+            latestentry = ReflectionEntry.objects.filter(user=self.user).latest('date')
+            latestdate = latestentry.date
+        else:
+            latestdate = currentdate - datetime.timedelta(days=10)
+        delta = currentdate - latestdate
+
+        if delta == datetime.timedelta(0):
+            return True
+        if delta > datetime.timedelta(1):
+            self.streak = 0
+        if increment:
+            self.streak += 1
+        self.save()
+        return True
 
     def check_last_sent(self, current):
         checktime = self.last_sent_confirmation + datetime.timedelta(hours=2)

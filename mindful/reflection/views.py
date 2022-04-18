@@ -44,6 +44,8 @@ class FormReflectionView(View):
     def render_formOne(self, request):
         form1 = self.form_class[0]()
         quote = DailyQuote.get_quote()
+        if request.user.is_authenticated:
+            request.user.profile.update_streak()
         return render(
             request,
             self.template_name[0],
@@ -91,6 +93,7 @@ class FormReflectionView(View):
                 ).update(feeling=feeling, adjective=adjective, reason=reason)
                 messages.success(request, "Reflection Updated Successfully")
             else:
+                request.user.profile.update_streak(True)
                 ReflectionEntry.objects.create(
                     user=request.user,
                     feeling=feeling,
