@@ -19,7 +19,6 @@ Create a copy of `envtemplate.txt` name it `.env` and fill out correct informati
 
 ```bash
 cp envtemplate.txt .env
-touch .env
 ```
 
 Create Docker Images and Run
