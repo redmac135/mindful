@@ -23,6 +23,8 @@ services:
       - ./mindful:/src
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=mindful.settings.staging
     expose:
       - "8000"
 
