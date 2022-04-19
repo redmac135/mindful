@@ -22,9 +22,21 @@ class ReflectionEntry(models.Model):
     feeling = models.IntegerField()
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
+    deleted = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('entry-detail', args=[str(self.id)])
+
+    def get_entries(user, **kwargs):
+        return ReflectionEntry.objects.filter(user=user, **kwargs).exclude(deleted=True)
+    
+    def get_entry(user, pk, **kwargs):
+        return ReflectionEntry.objects.filter(user=user, pk=pk, **kwargs).exclude(deleted=True)
+    
+    def delete_entry(self):
+        self.deleted = True
+        self.save()
+        return True
 
     def choicenumbers_to_text(data):
         feeling = data['feeling']

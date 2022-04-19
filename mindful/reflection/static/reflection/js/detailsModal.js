@@ -23,7 +23,8 @@ function getDetails(entry) {
         response.json()
     ).then(data => {
         // fill modal with data
-        var content = `On <i>${formatDay(data.date)}</i> I felt ${moods[data.feeling - 1]}.<br>I was ${formatArray(data.adjective)} because of ${formatArray(data.reason)}.`;
+        var content = `On <i>${formatDay(data.date)}</i> I felt ${moods[data.feeling - 1]}.<br>I was ${formatArray(data.adjective)} because of ${formatArray(data.reason)}.
+        <br><input type="submit" onclick="deleteEntry('${url}')" value="Delete">`;
         $('#modal-text').html(content);
     }).catch(error => {
         $('#modal-text').html("An internal error occurred. Try again later.");
@@ -33,6 +34,32 @@ function getDetails(entry) {
     $('#modal-content').animate({
         opacity: 1
     }, 100);
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function deleteEntry(url) {
+    console.log('DELETEEE')
+    fetch(url, {
+        method: 'delete',
+		credentials: 'same-origin',
+		headers: {
+			'X-CSRFToken': getCookie('csrftoken')
+		}
+    })
 }
 
 function hideModal() {

@@ -13,7 +13,7 @@ class ReflectionCalendar(HTMLCalendar):
         reflections_per_day = events.filter(date__day=day)
         feeling_icons = FEELING_ICONS
         d = "".join(
-            f'<button onclick="getDetails({event.get_absolute_url().rsplit("/", 1)[-1]})"><img src="/static/{feeling_icons[event.feeling - 1]}" alt=""></button>'
+            f'<button onclick="getDetails({event.get_absolute_url()[-2]})"><img src="/static/{feeling_icons[event.feeling - 1]}" alt=""></button>'
             for event in reflections_per_day
         )
 

@@ -1,8 +1,8 @@
 from django.urls import path, include
 from .views import FormReflectionView, DashboardView, ReflectionEntryViewSet
-from .router import CustomReflectionEntryRouter
+from rest_framework import routers
 
-router = CustomReflectionEntryRouter()
+router = routers.SimpleRouter()
 router.register(r'entries', ReflectionEntryViewSet, basename='entry')
 
 urlpatterns = [

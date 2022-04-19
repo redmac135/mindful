@@ -3,10 +3,14 @@ from datetime import date, datetime, timedelta
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 from django.views import View, generic
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.utils import serializer_helpers
 
@@ -106,27 +110,47 @@ class FormReflectionView(View):
 
         return redirect("dashboard")
 
+class ReflectionEntryDetail(APIView):
+    serializer = ReflectionEntrySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self, user, pk):
+        try:
+            return ReflectionEntry.get_entry(user, pk)
+        except:
+            raise Http404
+    
+    def get(self, request, pk, format=None):
+        entry = self.get_object(request.user, pk)
+        serializer = self.serializer(entry)
+        return Response(serializer.data)
+
+    def delete(self, request, pk, format=None):
+        entry = self.get_object(request.user, pk)
+        entry.delete_entry()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class ReflectionEntryViewSet(viewsets.ModelViewSet):
     serializer_class = ReflectionEntrySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return ReflectionEntry.objects.filter(user=self.request.user)
 
-    def finalize_response(self, request, response, *args, **kwargs):
-        if "detail" in response.data:
-            if type(response.data["detail"]) == ErrorDetail:
-                return super().finalize_response(request, response, *args, **kwargs)
-        if type(response.data) == serializer_helpers.ReturnList:
-            finalized_response = []
-            for item in response.data:
-                finalized_response.append(ReflectionEntry.choicenumbers_to_text(item))
-        else:
-            finalized_response = ReflectionEntry.choicenumbers_to_text(response.data)
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        finalized_response = ReflectionEntry.choicenumbers_to_text(serializer.data)
+        return Response(finalized_response)
 
-        response.data = finalized_response
-        return super().finalize_response(request, response, *args, **kwargs)
-
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def perform_destroy(self, instance):
+        instance.delete_entry()
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
     login_url = "/accounts/login"
@@ -143,7 +167,7 @@ class DashboardView(LoginRequiredMixin, generic.ListView):
         context["next_month"] = next_month(d)
         cal = ReflectionCalendar(d.year, d.month)
 
-        entries = ReflectionEntry.objects.filter(
+        entries = ReflectionEntry.get_entries(
             user=self.request.user, date__year=d.year, date__month=d.month
         )
 
@@ -152,7 +176,6 @@ class DashboardView(LoginRequiredMixin, generic.ListView):
         context["calendar"] = mark_safe(html_cal)
         return context
 
-
 # Function for Dashboard_View
 def get_date(req_day):
     if req_day:
@@ -160,13 +183,11 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.now()
 
-
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = "month=" + str(prev_month.year) + "-" + str(prev_month.month)
     return month
-
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
