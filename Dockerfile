@@ -22,4 +22,6 @@ RUN chmod +x /docker-entrypoint.sh
 
 COPY ./mindful .
 
+RUN python manage.py collectstatic --noinput
+
 ENTRYPOINT [ "bash", "/docker-entrypoint.sh" ]

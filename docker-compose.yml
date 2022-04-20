@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./mindful/staticfiles:/src/static
+      - django-static:/src/static
       - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
@@ -21,6 +21,7 @@ services:
       - db
     volumes:
       - ./mindful:/src
+      - django-static:/src/staticfiles
     env_file:
       - .env
     environment:
@@ -36,3 +37,6 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_HOST=${DATABASE_HOST}
       - POSTGRES_PORT=${DATABASE_PORT}
+
+volumes:
+  django-static:
