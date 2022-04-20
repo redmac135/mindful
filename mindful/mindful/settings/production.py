@@ -10,6 +10,8 @@ DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 
 SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
