@@ -1,0 +1,63 @@
+.calendar {
+    width: 98%;
+    margin: auto;
+    font-size: 13px;
+}
+
+.calendar tr, .calendar td {
+    border: 1px solid black;
+}
+
+.calendar th {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.calendar td {
+    width: 200px;
+    height: 120px;
+}
+
+.month {
+    font-size: 25px;
+}
+
+.date {
+    position: relative;
+    font-size: 16px;
+    top: 15px;
+    left: 5px;
+}
+
+ul.feeling-icon {
+    height: 100%;
+    text-align: center;
+}
+
+/* Next and previous button styles */
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.btn {
+    outline: none;
+    color: black;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+    margin: 15px;
+}
+
+/* Istoday */
+
+.istoday {
+    background-color: yellow;
+}

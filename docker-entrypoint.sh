@@ -11,9 +11,12 @@ then
     echo "PostgreSQL started"
 fi
 
+export DJANGO_SETTINGS_MODULE=mindful.settings.production
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata */fixtures/*.json
+python manage.py collectstatic
 python manage.py runserver 0.0.0.0:$PORT
 
 exec "$@"
