@@ -7,7 +7,7 @@ from multiselectfield import MultiSelectField
 import requests
 import random
 import pytz
-from datetime import datetime
+from datetime import datetime, date
 
 from mindful.settings import ZENQUOTES_API_KEY
 from .choices import *
@@ -18,7 +18,7 @@ CHOICES_LIST = [ADJECTIVE_CHOICES_1, ADJECTIVE_CHOICES_2, ADJECTIVE_CHOICES_3, A
 
 class ReflectionEntry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=date.today)
     feeling = models.IntegerField()
     adjective = MultiSelectField(choices=ADJECTIVE_CHOICES, max_choices=3)
     reason = MultiSelectField(choices=REASON_CHOICES, max_choices=3)
