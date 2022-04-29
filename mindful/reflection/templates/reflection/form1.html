@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="flex justify-center text-center">
-    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 rounded-3xl">
+    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 sm:w-96 md:w-200 rounded-3xl">
         {% if user.is_authenticated %}
         <div>Welcome {{ user.get_username }}</div>
         {% else %}
@@ -22,7 +22,7 @@
 </div>
 
 <div class="flex justify-center text-center">
-    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 rounded-3xl">
+    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 sm:w-96 md:w-200 rounded-3xl">
         <form action="" method="post">
             {% csrf_token %}
 
@@ -32,9 +32,10 @@
             </div>
 
             <div class="mx-3.5 mt-2.5 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6 mb-6">
-                <h2 class="pt-1 pb-3.5 px-2.5">How are you feeling?</h2>
+                <h2 class="text-lg font-semibold">How are you feeling?</h2>
+                <hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full m-4">
 
-                <div class="flex justify-center">
+                <div class="md:flex sm:block justify-center">
                     <!-- TODO: change face icons to svg -->
                     {% for subwidget, icon in form1.feeling|zip:icons %}
                     <div>
