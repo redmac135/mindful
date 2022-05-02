@@ -16,7 +16,7 @@
                     <div class="my-5">
                         {% if user.is_authenticated %}
                         <h1 class="font-extrabold text-clr-accent-1 text-7xl">
-                            Welcome back, {{ user.get_username }}.
+                            Welcome back, <p class="capitalize">{{ user.get_username }}</p>.
                         </h1>
                         {% else %}
                         <h1 class="font-extrabold text-clr-accent-1 text-7xl">Welcome to Mindful.</h1>
@@ -45,7 +45,8 @@
                         <div>
                             <input type="radio" name="{{ form1.feeling.name }}" id="{{ subwidget.id_for_label }}"
                                 value="{{ forloop.counter0|add:1 }}" class="hidden" />
-                            <label for="{{ subwidget.id_for_label }}" class="relative inline-block p-2 mx-2 cursor-pointer select-none">
+                            <label for="{{ subwidget.id_for_label }}"
+                                class="relative inline-block p-2 mx-2 cursor-pointer select-none">
                                 <img src="{% static icon %}" alt="{{ form1.feeling.name }} choice"
                                     class="w-auto duration-200 lg:h-24" />
                                 <p class="font-semibold text-center text-clr-main">
@@ -69,10 +70,11 @@
 
                 <div class="flex">
                     {% if user.is_authenticated %}
-                    <input class="lg:m-3 sm:mx-auto btn-accent" type="submit" name="ReflectionForm2" id="ReflectionForm2"
-                    value="Start your Reflection &#187;">
+                    <input class="lg:m-3 sm:mx-auto btn-accent" type="submit" name="ReflectionForm2"
+                        id="ReflectionForm2" value="Start your Reflection &#187;">
                     {% else %}
-                    <button class="lg:m-3 sm:mx-auto btn-accent" onclick="promptLoginModal()">Start your Reflection &#187;</button>
+                    <button class="lg:m-3 sm:mx-auto btn-accent" onclick="promptLoginModal()">Start your Reflection
+                        &#187;</button>
                     {% endif %}
                 </div>
             </div>
