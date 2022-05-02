@@ -1,49 +1,74 @@
-const moods = ['very sad', 'sad', 'neutral', 'happy', 'very happy'];
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const moods = ["very sad", "sad", "neutral", "happy", "very happy"];
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
 
 function formatArray(arr) {
-    arr = arr.map(word => word.toLowerCase());
+    arr = arr.map((word) => word.toLowerCase());
     if (arr.length === 1) {
         return arr[0];
     }
-    return arr.slice(0, -1).join(', ') + ' and ' + arr.slice(-1);
+    return arr.slice(0, -1).join(", ") + " and " + arr.slice(-1);
 }
 
 function formatDay(day) {
-    var tmp = day.split('-');
+    let tmp = day.split("-");
     return `${months[parseInt(tmp[1]) - 1]} ${tmp[2]}, ${tmp[0]}`;
 }
 
 function getDetails(entry) {
     // fetch data from api
-    var url = `/api/entries/${entry}`;
+    let url = `/api/entries/${entry}`;
     fetch(url, {
-        format: 'json'
-    }).then(response =>
-        response.json()
-    ).then(data => {
-        // fill modal with data
-        var content = `On <i>${formatDay(data.date)}</i> I felt ${moods[data.feeling - 1]}.<br>I was ${formatArray(data.adjective)} because of ${formatArray(data.reason)}.
+        format: "json",
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            // fill modal with data
+            let content = `On <i>${formatDay(data.date)}</i> I felt ${
+                moods[data.feeling - 1]
+            }.<br>I was ${formatArray(data.adjective)} because of ${formatArray(
+                data.reason
+            )}.
         <br><input type="submit" onclick="deleteEntry('${url}')" value="Delete">`;
-        $('#modal-text').html(content);
-    }).catch(error => {
-        $('#modal-text').html("An internal error occurred. Try again later.");
-    });
+            $("#modal-text").html(content);
+        })
+        .catch((error) => {
+            $("#modal-text").html(
+                "An internal error occurred. Try again later."
+            );
+        });
     $("#modal").show();
-    $('#modal-content').css('opacity', '0');
-    $('#modal-content').animate({
-        opacity: 1
-    }, 100);
+    $("#modal-content").css("opacity", "0");
+    $("#modal-content").animate(
+        {
+            opacity: 1,
+        },
+        100
+    );
 }
 
 function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = jQuery.trim(cookie);
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
                 break;
             }
         }
@@ -52,14 +77,14 @@ function getCookie(name) {
 }
 
 function deleteEntry(url) {
-    console.log('DELETEEE')
+    //console.log("DELETEEE");
     fetch(url, {
-        method: 'delete',
-		credentials: 'same-origin',
-		headers: {
-			'X-CSRFToken': getCookie('csrftoken')
-		}
-    })
+        method: "delete",
+        credentials: "same-origin",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+        },
+    });
 }
 
 function hideModal() {
@@ -67,7 +92,7 @@ function hideModal() {
 }
 
 $(window).click(function (event) {
-    if (event.target.id === 'modal') {
+    if (event.target.id === "modal") {
         hideModal();
     }
 });
