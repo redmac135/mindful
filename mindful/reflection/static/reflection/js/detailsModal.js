@@ -14,6 +14,8 @@ const months = [
     "December",
 ];
 
+let url;
+
 function formatArray(arr) {
     arr = arr.map((word) => word.toLowerCase());
     if (arr.length === 1) {
@@ -29,7 +31,7 @@ function formatDay(day) {
 
 function getDetails(entry) {
     // fetch data from api
-    let url = `/api/entries/${entry}`;
+    url = `/api/entries/${entry}`;
     fetch(url, {
         format: "json",
     })
@@ -40,8 +42,7 @@ function getDetails(entry) {
                 moods[data.feeling - 1]
             }.<br>I was ${formatArray(data.adjective)} because of ${formatArray(
                 data.reason
-            )}.
-        <br><input type="submit" onclick="deleteEntry('${url}')" value="Delete">`;
+            )}.<br><input type="submit" onclick="showDeleteConfirmation()" value="Delete" class="btn-pink mt-3 -mb-1">`;
             $("#modal-text").html(content);
         })
         .catch((error) => {
@@ -49,6 +50,7 @@ function getDetails(entry) {
                 "An internal error occurred. Try again later."
             );
         });
+    $("#modal-del").hide();
     $("#modal").show();
     $("#modal-content").css("opacity", "0");
     $("#modal-content").animate(
@@ -76,7 +78,22 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function deleteEntry(url) {
+function showDeleteConfirmation() {
+    $("#modal-content").addClass("rounded-b-none");
+    $("#modal-del").slideDown("fast");
+}
+
+function confirmDelete() {
+    deleteEntry();
+    hideModal();
+}
+
+function cancelDelete() {
+    $("#modal-content").removeClass("rounded-b-none");
+    $("#modal-del").slideUp("fast");
+}
+
+function deleteEntry() {
     //console.log("DELETEEE");
     fetch(url, {
         method: "delete",
