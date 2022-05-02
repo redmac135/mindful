@@ -11,8 +11,6 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import ErrorDetail
-from rest_framework.utils import serializer_helpers
 
 from .choices import FEELING_ICONS
 from .forms import FormReflectionOne, FormReflectionTwo
@@ -135,7 +133,7 @@ class ReflectionEntryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return ReflectionEntry.objects.filter(user=self.request.user)
+        return ReflectionEntry.get_entries(self.request.user)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

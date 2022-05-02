@@ -7,7 +7,7 @@ from multiselectfield import MultiSelectField
 import requests
 import random
 import pytz
-from datetime import datetime, date
+from datetime import date
 
 from mindful.settings import ZENQUOTES_API_KEY
 from .choices import *
