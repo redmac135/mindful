@@ -52,13 +52,6 @@ class ReflectionEntry(models.Model):
 
         return data
 
-    def check_existing_entry(request):
-        return request.user.is_authenticated and bool(
-                ReflectionEntry.objects.filter(
-                    user=request.user, date=datetime.now()
-                ).exists()
-            )
-
     def __str__(self):
         return str(self.user) + " " + str(self.date)
 

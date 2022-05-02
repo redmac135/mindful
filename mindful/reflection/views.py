@@ -66,7 +66,7 @@ class FormReflectionView(View):
         )
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
-        update = ReflectionEntry.check_existing_entry(request)
+        update = request.user.is_authenticated and ReflectionEntry.get_entries(request.user, date=datetime.now()).exists()
         return render(
             request,
             self.template_name[1],
@@ -89,12 +89,10 @@ class FormReflectionView(View):
             feeling = request.session["Data_ReflectionForm1"]
             adjective = data_form2.get("adjective")
             reason = data_form2.get("reason")
-            if ReflectionEntry.objects.filter(
-                user=request.user, date=datetime.now()
-            ).exists():
-                ReflectionEntry.objects.filter(
-                    user=request.user, date=datetime.now()
-                ).update(feeling=feeling, adjective=adjective, reason=reason)
+            if ReflectionEntry.get_entries(request.user, date=datetime.now()).exists():
+                ReflectionEntry.get_entries(
+                    request.user, date=datetime.now()
+                ).update(feeling=feeling, adjective=adjective, reason=reason, deleted=False)
                 messages.success(request, "Reflection Updated Successfully")
             else:
                 request.user.profile.update_streak(True)
@@ -103,6 +101,7 @@ class FormReflectionView(View):
                     feeling=feeling,
                     adjective=adjective,
                     reason=reason,
+                    deleted=False,
                 )
                 messages.success(request, "Reflection Saved Successfully")
         else:
