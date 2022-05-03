@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: FredokaLight;
-    src: url('fonts/Fredoka-Light.ttf') format('truetype');
+    src: url("fonts/Fredoka-Light.ttf") format("truetype");
 }
 
 * {
@@ -12,29 +12,18 @@
 }
 
 @layer components {
-    .btn-pink {
-        @apply cursor-pointer text-gray-700 text-base font-bold rounded-full px-5 py-2 my-1 mx-2 bg-mindful-pink-300 border-2 border-mindful-pink-400 hover:bg-mindful-pink-200 transition-colors;
+    .btn-accent {
+        @apply cursor-pointer font-bold rounded-xl p-3 bg-clr-accent-1 text-clr-accent-2 border-2 border-clr-accent-2
     }
-}
-
-/* Variables */
-:root {
-    --mindful-blue: #cde3f3;
-    --mindful-pink: #e59490;
-    --mindful-pink-light: #e5a3a0;
-    --mindful-gray: #394759;
-    --tea-green: #e2f9b8ff;
-    --eagle-green: #204b57ff;
 }
 
 /* Global Classes */
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }

@@ -11,11 +11,14 @@ module.exports = {
             width: {
                 200: "50rem",
             },
-            backgroundImage: {
-                "gradient-radial":
-                    "radial-gradient(var(--gradient-color-stops))",
-            },
             colors: {
+                // https://coolors.co/2870a4-bddaef-8cbfe3-f4d0cd-e5918b
+                "clr-main": "#2870a4",
+                "clr-secondary-1": "#BDDAEF",
+                "clr-secondary-2": "#8CBFE3",
+                "clr-accent-1": "#F4D0CD",
+                "clr-accent-2": "#D96159",
+                "modal-shade": "rgb(31, 41, 55, 0.5)",
                 "mindful-blue": {
                     50: "#eaf4fa",
                     100: "#cde3f3",

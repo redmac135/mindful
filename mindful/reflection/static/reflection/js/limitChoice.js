@@ -1,19 +1,23 @@
-$(document).ready(function () {
-	$("#id_reason :input").change(function (event) {
-		if ($("#id_reason :input:checked").length > 3) {
-			this.checked = false;
-			this.nextElementSibling.classList.add("animate-shake");
-			this.nextElementSibling.addEventListener("animationend", finishAnimation)
+function checkChild(element, form_type) {
+    let child = $(element).children("input")[0];
+    child.checked = !child.checked;
+    if (child.checked) {
+		if ($(`input[name=${form_type}]:checked`).length > 3) {
+			$(child).prop("checked", false);
+            $(element).addClass("animate-shake");
+            $(element).on("animationend", finishAnimation);
+        } else {
+			$(element).removeClass("shadow-md");
+			$(element).addClass("scale-95");
+			$(element).addClass("bg-clr-accent-1");
 		}
-	});
-	$("#id_adjective :input").change(function (event) {
-		if ($("#id_adjective :input:checked").length > 3) {
-			this.checked = false;
-			this.nextElementSibling.classList.add("animate-shake");
-			this.nextElementSibling.addEventListener("animationend", finishAnimation)
-		}
-	});
-	function finishAnimation() {
-		this.classList.remove("animate-shake")
+    } else {
+		$(element).addClass("shadow-md");
+		$(element).removeClass("scale-95");
+		$(element).removeClass("bg-clr-accent-1");
 	}
-});
+}
+
+function finishAnimation() {
+    $(this).removeClass("animate-shake");
+}

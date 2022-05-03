@@ -3,85 +3,69 @@
 {% load zip %}
 
 {% block links %}
-<link rel="stylesheet" href="{% static 'reflection/css/form2.css' %}">
 <script type="text/javascript" src="{% static 'reflection/js/limitChoice.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
+    <div class="flex">
+        <div class="justify-center m-auto text-center lg:w-1/2">
+            <!-- first form -->
+            <h2 class="m-3 text-4xl font-bold text-clr-secondary-1">How would you describe how you're feeling?</h2>
+            <p class="text-lg font-semibold text-clr-secondary-1">Select a maximum of 3 choices.</p>
+            <ul class="flex flex-wrap w-full" id="id_adjective">
+                {% for subwidget, adjective in form2.adjective|zip:adjective_choices %}
+                <li class="box-border w-5/12 p-3 mx-auto my-3 duration-200 rounded-md shadow-md cursor-pointer bg-clr-secondary-1"
+                    onclick="checkChild(this, 'adjective')">
+                    <input class="hidden" type="checkbox" name="{{ form2.adjective.name }}"
+                        id="{{ subwidget.id_for_label }}" value="{{ forloop.counter0|add:1 }}">
+                    <label class="text-xl font-semibold cursor-pointer select-none text-clr-main"
+                        for="{{ subwidget.id_for_label }}">
+                        {{ adjective }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if form2.adjective.errors %}
+            <ul class="flex flex-wrap justify-center pl-0 list-none">
+                {% for error in form2.adjective.errors %}
+                <li class="inline-block list-none">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <hr class="w-1/4 mx-auto my-3 border-t-2 border-dashed border-clr-secondary-2">
 
-    <div class="flex justify-center text-center">
-        <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 rounded-3xl">
-            <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 pt-4 pb-2 px-6">
-                <div id="{{ form2.adjective.auto_id }}" class="form-field">
-                    <div class="text-lg font-semibold">How would you describe how you're feeling?</div>
-                    <div class="text-sm font-light italic m-3">Select a maximum of 3 choices</div>
-                    <hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full">
+            <!-- second form -->
+            <h2 class="m-3 text-4xl font-bold text-clr-secondary-1">Why are you feeling {{ feeling }}?</h2>
+            <p class="text-lg font-semibold text-clr-secondary-1">Select a maximum of 3 choices.</p>
+            <ul class="flex flex-wrap w-full" id="id_adjective">
+                {% for subwidget, reason in form2.reason|zip:reason_choices %}
+                <li class="box-border w-5/12 p-3 mx-auto my-3 duration-200 rounded-md shadow-md cursor-pointer bg-clr-secondary-1"
+                    onclick="checkChild(this, 'reason')">
+                    <input class="hidden" type="checkbox" name="{{ form2.reason.name }}"
+                        id="{{ subwidget.id_for_label }}" value="{{ forloop.counter0|add:1 }}">
+                    <label class="text-xl font-semibold cursor-pointer select-none text-clr-main"
+                        for="{{ subwidget.id_for_label }}">
+                        {{ reason }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if form2.reason.errors %}
+            <ul class="flex flex-wrap pl-0 list-none">
+                {% for error in form2.reason.errors %}
+                <li class="inline-block list-none">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <hr class="w-1/4 mx-auto my-3 border-t-2 border-dashed border-clr-secondary-2">
 
-                    <ul class="flex flex-wrap pl-0 list-none justify-center">
-                        {% for subwidget, adjective in form2.adjective|zip:adjective_choices %}
-                        <li class="inline-block list-none">
-                            <input class="hidden" type="checkbox" name="{{ form2.adjective.name }}"
-                                id="{{ subwidget.id_for_label }}" value="{{ forloop.counter0|add:1 }}">
-                            <label
-                                class="noselect rounded-md cursor-pointer w-36 p-2.5 h-10 relative flex justify-center items-center duration-200 bg-amber-300 m-4 border-2 border-solid border-yellow-400"
-                                for="{{ subwidget.id_for_label }}">
-                                {{ adjective }}
-                            </label>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    {% if form2.adjective.errors %}
-                    <ul class="flex flex-wrap pl-0 list-none justify-center">
-                        {% for error in form2.adjective.errors %}
-                        <li class="inline-block list-none">{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 pt-4 pb-2 px-6">
-                <div id="{{ form2.reason.auto_id }}" class="form-field">
-                    <!-- TODO: change "x out of 5" to actual words -->
-                    <div class="text-lg font-semibold">Why are you feeling a {{ feeling }} out of 5?</div>
-                    <div class="text-sm font-light italic m-3">Select a maximum of 3 choices</div>
-                    <hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full">
-
-                    <ul class="flex flex-wrap pl-0 list-none justify-center">
-                        {% for subwidget, reason in form2.reason|zip:reason_choices %}
-                        <li class="inline-block list-none">
-                            <input class="hidden" type="checkbox" name="{{ form2.reason.name }}"
-                                id="{{ subwidget.id_for_label }}" value="{{ forloop.counter0|add:1 }}">
-                            <label
-                                class="noselect rounded-md cursor-pointer w-36 p-2.5 h-10 relative flex justify-center items-center duration-200 bg-amber-300 m-4 border-2 border-solid border-yellow-400"
-                                for="{{ subwidget.id_for_label }}">
-                                {{ reason }}
-                            </label>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    {% if form2.reason.errors %}
-                    <ul class="flex flex-wrap pl-0 list-none">
-                        {% for error in form2.reason.errors %}
-                        <li class="inline-block list-none">{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-
-                {{ field.help_text }}
-                {{ form1.non_field_errors }}
-            </div>
-
-            <input class="btn-pink" type="submit" name="ReflectionForm1" id="ReflectionForm1" value="Back Home">
+            <input class="m-3 md:w-1/4 btn-accent" type="submit" name="ReflectionForm1" id="ReflectionForm1" value="&#171; Back Home">
             {% if update %}
-            <input class="btn-pink" type="submit" name="submit" value="Update Log">
+            <input class="m-3 md:w-1/4 btn-accent" type="submit" name="submit" value="Update Log &#187;">
             {% else %}
-            <input class="btn-pink" type="submit" name="submit" value="Submit Log">
+            <input class="m-3 md:w-1/4 btn-accent" type="submit" name="submit" value="Submit Log &#187;">
             {% endif %}
         </div>
     </div>

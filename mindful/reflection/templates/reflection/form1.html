@@ -4,66 +4,95 @@
 
 {% block links %}
 <link rel="stylesheet" href="{% static 'reflection/css/form1.css' %}" />
+<script type="text/javascript" src="{% static 'reflection/js/promptLogin.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="flex justify-center text-center">
-    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 sm:w-96 md:w-200 rounded-3xl">
-        {% if user.is_authenticated %}
-        <div>Welcome {{ user.get_username }}</div>
-        {% else %}
-        <div class="text-lg mb-5">
-            Notice: You are not logged in, form will not save
-        </div><a href="{% url 'signup' %}" class="btn-pink">Register</a>
-        <a href="{% url 'login' %}" class="btn-pink">Login</a>
-
-        {% endif %}
-    </div>
-</div>
-
-<div class="flex justify-center text-center">
-    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 sm:w-96 md:w-200 rounded-3xl">
-        <form action="" method="post">
-            {% csrf_token %}
-
-            <div class="mx-3.5 mt-2.5 mb-6 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6">
-                <h3 class="italic break-words" id="quote-text">"{{ quote.quote }}"</h3>
-                <p class="text-center" id="quote-author">- {{ quote.author }}</p>
-            </div>
-
-            <div class="mx-3.5 mt-2.5 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6 mb-6">
-                <h2 class="text-lg font-semibold">How are you feeling?</h2>
-                <hr class="border-mindful-gray-400 border-solid border-t-2 rounded-full m-4">
-
-                <div class="md:flex sm:block justify-center">
-                    <!-- TODO: change face icons to svg -->
-                    {% for subwidget, icon in form1.feeling|zip:icons %}
-                    <div>
-                        <input type="radio" name="{{ form1.feeling.name }}" id="{{ subwidget.id_for_label }}"
-                            value="{{ forloop.counter0|add:1 }}" />
-                        <label for="{{ subwidget.id_for_label }}">
-                            <img src="{% static icon %}" alt="Placeholder Test Image" />
-                            <div>
-                                {{subwidget|striptags|make_list|slice:'2:'|join:''}}
-                            </div>
-                        </label>
+<div class="lg:flex lg:h-screen">
+    <div class="m-auto lg:w-5/6">
+        <div class="justify-center lg:flex lg:space-x-5">
+            <div class="flex flex-auto p-3 lg:w-1/2">
+                <div class="m-auto">
+                    <div class="my-5">
+                        {% if user.is_authenticated %}
+                        <h1 class="font-extrabold text-clr-accent-1 text-7xl">
+                            Welcome back, <span class="capitalize">{{ user.get_username }}</span>.
+                        </h1>
+                        {% else %}
+                        <h1 class="font-extrabold text-clr-accent-1 text-7xl">Welcome to Mindful.</h1>
+                        <p class="text-lg text-clr-secondary-1">
+                            <i>Warning: you are not signed in, <u>reflection will not save.</u></i>
+                        </p>
+                        {% endif %}
                     </div>
-                    {% endfor %}
+                    <div class="my-6">
+                        <h3 class="text-2xl font-bold text-clr-secondary-1 lg:text-3xl"><i>{{ quote.quote }}</i></h3>
+                        <p class="text-lg text-clr-secondary-1">- {{ quote.author }}</p>
+                    </div>
                 </div>
             </div>
 
-            {% if form1.feeling.errors %}
-            <ul>
-                {% for error in form1.feeling.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {{ field.help_text }}
-            {{ form1.non_field_errors }}
-            <input class="btn-pink" type="submit" name="ReflectionForm2" id="ReflectionForm2"
-                value="Start your Reflection">
-        </form>
+            <div
+                class="flex-auto p-3 m-auto rounded-md shadow-lg lg:w-1/2 lg:bg-gradient-to-r lg:from-clr-secondary-1 lg:to-clr-secondary-2 bg-clr-secondary-1">
+                <h2 class="m-3 text-4xl font-semibold text-center text-clr-main lg:text-left">
+                    How are you feeling?
+                </h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <!-- TODO: change face icons to svg -->
+                    <div class="flex">
+                        {% for subwidget, icon in form1.feeling|zip:icons %}
+                        <div class="flex flex-1">
+                            <div class="mx-auto my-3">
+                                <input type="radio" name="{{ form1.feeling.name }}" id="{{ subwidget.id_for_label }}"
+                                    value="{{ forloop.counter0|add:1 }}" class="hidden" />
+                                <label for="{{ subwidget.id_for_label }}"
+                                    class="relative inline-block mx-2 cursor-pointer select-none">
+                                    <img src="{% static icon %}" alt="{{ form1.feeling.name }} choice"
+                                        class="w-auto duration-200 lg:h-24" />
+                                </label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if form1.feeling.errors %}
+                        <ul>
+                            {% for error in form1.feeling.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {{ field.help_text }}
+                        {{ form1.non_field_errors }}
+                    </div>
+
+                    <div class="flex">
+                        {% if user.is_authenticated %}
+                        <input class="mx-auto shadow-lg lg:m-3 btn-accent" type="submit" name="ReflectionForm2"
+                            id="ReflectionForm2" value="Start your Reflection &#187;">
+                        {% else %}
+                        <button class="mx-auto shadow-lg lg:m-3 btn-accent" onclick="promptLoginModal()">
+                            Start your Reflection &#187;
+                        </button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="login-modal" class="fixed top-0 left-0 hidden w-full h-full bg-modal-shade">
+    <div id="modal-content" class="flex h-full">
+        <div class="p-3 m-auto text-center rounded-md lg:w-1/4 bg-clr-secondary-1">
+            <span class="float-right -mt-4 text-2xl font-bold hover:cursor-pointer hover:no-underline"
+                onclick="hideLoginModal()">&times;</span>
+            <h2 class="text-2xl font-semibold text-clr-main">You are not signed in!</h2>
+            <p class="mb-4 text-clr-main"><i>Sign in or create an account to save your reflection.</i></p>
+            <div class="flex justify-center space-x-2">
+                <div class="w-1/2 p-1 lg:w-1/4 btn-accent"><a href="{% url 'signup' %}">Register</a></div>
+                <div class="w-1/2 p-1 lg:w-1/4 btn-accent"><a href="{% url 'login' %}">Login</a></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
