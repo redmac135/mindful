@@ -67,12 +67,13 @@ class FormReflectionView(View):
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
         update = request.user.is_authenticated and ReflectionEntry.get_entries(request.user, date=datetime.now()).exists()
+        feeling_words = ["very sad", "sad", "neutral", "happy", "very happy"]
         return render(
             request,
             self.template_name[1],
             {
                 "form2": form2,
-                "feeling": feeling,
+                "feeling": feeling_words[int(feeling) - 1],
                 "adjective_choices": adjective_choices,
                 "reason_choices": reason_choices,
                 "update": update,
@@ -118,7 +119,7 @@ class ReflectionEntryDetail(APIView):
             return ReflectionEntry.get_entry(user, pk)
         except:
             raise Http404
-    
+
     def get(self, request, pk, format=None):
         entry = self.get_object(request.user, pk)
         serializer = self.serializer(entry)
@@ -147,7 +148,7 @@ class ReflectionEntryViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
     def perform_destroy(self, instance):
         instance.delete_entry()
 
