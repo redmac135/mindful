@@ -70,9 +70,8 @@
                         <input class="mx-auto shadow-lg lg:m-3 btn-accent" type="submit" name="ReflectionForm2"
                             id="ReflectionForm2" value="Start your Reflection &#187;">
                         {% else %}
-                        <button class="mx-auto shadow-lg lg:m-3 btn-accent" onclick="promptLoginModal()">
-                            Start your Reflection &#187;
-                        </button>
+                        <a class="mx-auto shadow-lg lg:m-3 btn-accent" href="{% url 'signup' %}" class="btn-pink">Register &#187;</a>
+                        <a class="mx-auto shadow-lg lg:m-3 btn-accent" href="{% url 'login' %}" class="btn-pink">Login &#187;</a>
                         {% endif %}
                     </div>
                 </form>
