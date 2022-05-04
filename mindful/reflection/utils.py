@@ -32,7 +32,7 @@ class ReflectionCalendar(HTMLCalendar):
     def formatmonth(self, entries, today, withyear=True):
         events = entries
 
-        if not self.month == today.month:
+        if not self.year == today.year or not self.month == today.month:
             today = None
 
         cal = '<table border="1" cellpadding="0" cellspacing="0" class="calendar">\n'
