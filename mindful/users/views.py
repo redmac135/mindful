@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
 
 from .models import Profile
 from .forms import SignUpForm, ResendActivationEmailForm
