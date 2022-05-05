@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 from django.views import View, generic
@@ -162,12 +162,22 @@ class ReflectionEntryListViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         year = self.request.query_params.get("y", None)
         month = self.request.query_params.get("m", None)
+        if year is None:
+            raise HttpResponseBadRequest("year is required")
+        if month is None:
+            return ReflectionEntry.get_entries(self.request.user, date__year=year)
         return ReflectionEntry.get_entries(
             self.request.user, date__year=year, date__month=month
         )
 
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+        try:
+            queryset = self.get_queryset()
+        except Exception:
+            return Response(
+                {"bad_request": "usage: /api/all_entries/?<y=year>[&m=month]"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         serializer = self.get_serializer(queryset, many=True)
         finalized_response = ReflectionEntry.choicenumbers_to_text(serializer.data)
         return Response(finalized_response)
