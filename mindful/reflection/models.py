@@ -14,6 +14,9 @@ from .choices import *
 
 CHOICES_LIST = [ADJECTIVE_CHOICES_1, ADJECTIVE_CHOICES_2, ADJECTIVE_CHOICES_3, ADJECTIVE_CHOICES_4, ADJECTIVE_CHOICES_5]
 
+CHOICES_LIST_DICT = [dict(x) for x in CHOICES_LIST]
+REASON_CHOICES_DICT = dict(REASON_CHOICES)
+
 # Create your models here.
 
 class ReflectionEntry(models.Model):
@@ -27,28 +30,27 @@ class ReflectionEntry(models.Model):
     def get_absolute_url(self):
         return reverse('entry-detail', args=[str(self.id)])
 
+    @staticmethod
     def get_entries(user, **kwargs):
         return ReflectionEntry.objects.filter(user=user, **kwargs).exclude(deleted=True)
-    
+
+    @staticmethod
     def get_entry(user, pk, **kwargs):
         return ReflectionEntry.objects.filter(user=user, pk=pk, **kwargs).exclude(deleted=True)
-    
+
     def delete_entry(self):
         self.deleted = True
         self.save()
         return True
 
+    @staticmethod
     def choicenumbers_to_text(data):
-        feeling = data['feeling']
-        finalized_adjectives = []
-        adjective_list = CHOICES_LIST[feeling-1]
-        for adjective in data['adjective']:
-            finalized_adjectives.extend(choice[1] for choice in adjective_list if choice[0] == int(adjective))
-        finalized_reasons = []
-        for reason in data['reason']:
-            finalized_reasons.extend(choice[1] for choice in REASON_CHOICES if choice[0] == int(reason))
-        data['adjective'] = finalized_adjectives
-        data['reason'] = finalized_reasons
+        if isinstance(data, list):
+            return [ReflectionEntry.choicenumbers_to_text(x) for x in data]
+
+        adjective_list = CHOICES_LIST_DICT[data["feeling"] - 1]
+        data["adjective"] = [adjective_list[int(x)] for x in data["adjective"]]
+        data["reason"] = [REASON_CHOICES_DICT[int(x)] for x in data["reason"]]
 
         return data
 

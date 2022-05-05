@@ -64,7 +64,10 @@ class FormReflectionView(View):
         )
         adjective_choices = form2.get_adjectives(feeling=feeling)
         reason_choices = form2.get_reasons
-        update = request.user.is_authenticated and ReflectionEntry.get_entries(request.user, date=datetime.now()).exists()
+        update = (
+            request.user.is_authenticated
+            and ReflectionEntry.get_entries(request.user, date=datetime.now()).exists()
+        )
         feeling_words = ["very sad", "sad", "neutral", "happy", "very happy"]
         return render(
             request,
@@ -89,9 +92,9 @@ class FormReflectionView(View):
             adjective = data_form2.get("adjective")
             reason = data_form2.get("reason")
             if ReflectionEntry.get_entries(request.user, date=datetime.now()).exists():
-                ReflectionEntry.get_entries(
-                    request.user, date=datetime.now()
-                ).update(feeling=feeling, adjective=adjective, reason=reason, deleted=False)
+                ReflectionEntry.get_entries(request.user, date=datetime.now()).update(
+                    feeling=feeling, adjective=adjective, reason=reason, deleted=False
+                )
                 messages.success(request, "Reflection Updated Successfully")
             else:
                 request.user.profile.update_streak(True)
@@ -107,6 +110,7 @@ class FormReflectionView(View):
             messages.error(request, "You're not logged in, reflection did not save")
 
         return redirect("dashboard")
+
 
 class ReflectionEntryDetail(APIView):
     serializer = ReflectionEntrySerializer
@@ -150,6 +154,25 @@ class ReflectionEntryViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         instance.delete_entry()
 
+
+class ReflectionEntryListViewSet(viewsets.ModelViewSet):
+    serializer_class = ReflectionEntrySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        year = self.request.query_params.get("y", None)
+        month = self.request.query_params.get("m", None)
+        return ReflectionEntry.get_entries(
+            self.request.user, date__year=year, date__month=month
+        )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        finalized_response = ReflectionEntry.choicenumbers_to_text(serializer.data)
+        return Response(finalized_response)
+
+
 class DashboardView(LoginRequiredMixin, generic.ListView):
     login_url = "/accounts/login"
     redirect_field_name = "dashboard"
@@ -174,6 +197,7 @@ class DashboardView(LoginRequiredMixin, generic.ListView):
         context["calendar"] = mark_safe(html_cal)
         return context
 
+
 # Function for Dashboard_View
 def get_date(req_day):
     if req_day:
@@ -181,11 +205,13 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.now()
 
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = "month=" + str(prev_month.year) + "-" + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]

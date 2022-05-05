@@ -1,9 +1,12 @@
-from django.urls import path, include
-from .views import FormReflectionView, DashboardView, ReflectionEntryViewSet
+from django.urls import include, path
 from rest_framework import routers
+
+from .views import (DashboardView, FormReflectionView,
+                    ReflectionEntryListViewSet, ReflectionEntryViewSet)
 
 router = routers.SimpleRouter()
 router.register(r'entries', ReflectionEntryViewSet, basename='entry')
+router.register(r'all_entries', ReflectionEntryListViewSet, basename='all_entries')
 
 urlpatterns = [
     path('', FormReflectionView.as_view(), name="home"),
