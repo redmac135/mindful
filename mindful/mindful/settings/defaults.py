@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'reflection',
     'about',
     'resources',
+    'miniapps',
 
     'users.templatetags.fieldfilter',
 
