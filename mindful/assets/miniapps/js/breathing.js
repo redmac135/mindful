@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Animated } from 'react-native';
-
-const c = new Animated.Value(0);
-
 class App extends Component {
     render() {
-        React.useEffect(() => {
+
+        const [color, setColor ] = useState(Animated.Value(0));
+        
+        setColor(() => {
             Animated.loop(
-                Animated.timing(c, {
+                Animated.timing(color, {
                     toValue: 300,
                     duration: 3000,
                 }),
@@ -16,7 +16,7 @@ class App extends Component {
             ).start();
         }, []);
 
-        const animatedColor = c.interpolate({
+        const animatedColor = color.interpolate({
             inputRange: [0, 200, 300],
             outputRange: ['orange', 'lightgreen', 'yellow'],
         });
@@ -35,5 +35,3 @@ root.render(
         <App />
     </React.StrictMode>
 );
-
-reportWebVitals();
