@@ -1,37 +1,47 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Animated } from 'react-native';
-class App extends Component {
-    render() {
+import { TouchableOpacity, Animated } from 'react-native';
 
-        const [color, setColor ] = useState(Animated.Value(0));
-        
-        setColor(() => {
-            Animated.loop(
-                Animated.timing(color, {
-                    toValue: 300,
-                    duration: 3000,
-                }),
-                { iterations: 5 }
-            ).start();
-        }, []);
+const ButtonWithSpin = () => {
+  const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
 
-        const animatedColor = color.interpolate({
-            inputRange: [0, 200, 300],
-            outputRange: ['orange', 'lightgreen', 'yellow'],
-        });
+  const handleAnimation = () => {
+    Animated.timing(rotateAnimation, {
+      toValue: 1,
+      duration: 800,
+    }).start(() => {
+      rotateAnimation.setValue(0);
+    });
+  };
 
-        return (
-            <Animated.View style={{ backgroundColor: animatedColor }}>
-                <h1>Hi There!</h1>
-            </Animated.View>
-        );
-    }
+  const interpolateRotating = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '720deg'],
+  });
+
+  const animatedStyle = {
+    transform: [
+      {
+        rotate: interpolateRotating,
+      },
+    ],
+  };
+
+  return (
+    <TouchableOpacity
+      onPress={async () => handleAnimation()}
+      style={{ width: 60 }}
+    >
+      <Animated.Text style={animatedStyle}>Click me</Animated.Text>
+    </TouchableOpacity>
+  );
 };
+
+export default ButtonWithSpin;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <App />
+        <ButtonWithSpin />
     </React.StrictMode>
 );

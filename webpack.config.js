@@ -12,8 +12,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-native': 'react-native-web',
-    },
+      'react-native': 'react-native-web', 
+    }, // replace all references to react-native with react-native-web
   },
   module: {
     rules: [
