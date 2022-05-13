@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}STR Mindful | Resources{% endblock %}
+
+{% block content %}
+<script>
+    // TODO: put this in a file
+    let selected_types = new Set();
+
+    function filterResources(element) {
+        if (element.checked) {
+            selected_types.add(element.id);
+        } else {
+            selected_types.delete(element.id);
+        }
+
+        let cnt = 0;
+        if (selected_types.size === 0) {
+            $("#resource-list div").show();
+            cnt = $("#resource-list div").length;
+        } else {
+            $("#resource-list div").hide();
+            $("#resource-list div").each(function () {
+                if (selected_types.has($(this).attr("id"))) {
+                    $(this).show();
+                    cnt++;
+                }
+            });
+        }
+
+        $("#resource-cnt").text(`${cnt} resource${cnt === 1 ? "" : "s"} found`);
+    }
+</script>
+<div class="w-5/6 m-auto">
+    <h1 class="p-3 m-3 font-bold text-7xl text-clr-accent-1">Resources</h1>
+    <div class="flex">
+        <div class="flex-auto w-1/6 p-3 m-3">
+            <p class="text-3xl font-semibold text-clr-secondary-1">Resource Type</p>
+            <ul class="m-3">
+                {% for resource_t in resource_types %}
+                <li class="m-1">
+                    <label class="text-clr-secondary-1">
+                        <input type="checkbox" id="{{ resource_t.0 }}" onclick="filterResources(this)">
+                        {{ resource_t.1 }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="flex-auto w-5/6 p-3 m-3">
+            <p id="resource-cnt" class="text-2xl text-clr-secondary-1">
+                {{ resources|length }} result{% if resources|length != 1 %}s{% endif %} found
+            </p>
+            <hr class="my-3 bg-clr-secondary-1">
+            <div class="grid grid-cols-3 gap-4" id="resource-list">
+                {% for resource in resources %}
+                <div id="{{ resource.resource_t }}"
+                    class="p-3 divide-y-2 rounded-md shadow-md bg-clr-secondary-1 divide-clr-main">
+                    <h3 class="m-3 text-2xl font-semibold text-center text-clr-main">{{ resource.name.title }}</h3>
+                    <p class="py-3 mx-3 text-xl text-clr-main">{{ resource.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

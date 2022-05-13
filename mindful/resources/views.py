@@ -7,21 +7,14 @@ from .models import Resource
 
 
 class ResourcesView(View):
-    template_name = "resources/resources_form.html"
+    template_name = "resources/resources.html"
 
     def get(self, request):
-        t = request.GET.get("t", "")
-        if t == "all":
-            print(Resource.objects.all())
-            return render(
-                request,
-                "resources/resources_list.html",
-                {"resources": Resource.objects.all()},
-            )
-        if t in {"hotlines", "counselling", "cbt"}:
-            return render(
-                request,
-                "resources/resources_list.html",
-                {"resources": Resource.objects.filter(resource_t=t)},
-            )
-        return render(request, self.template_name)
+        return render(
+            request,
+            self.template_name,
+            {
+                "resource_types": Resource.ResourceType.choices,
+                "resources": Resource.objects.all(),
+            },
+        )

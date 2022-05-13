@@ -69,5 +69,5 @@ module.exports = {
             },
         },
     },
-    plugins: [require("flowbite/plugin")],
+    plugins: [require("tailwind-accent-color")(), require("flowbite/plugin")],
 };
