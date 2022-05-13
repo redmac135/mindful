@@ -15,6 +15,9 @@
     .btn-accent {
         @apply cursor-pointer font-bold rounded-xl p-3 bg-clr-accent-1 text-clr-accent-2 border-2 border-clr-accent-2
     }
+    .btn-secondary {
+        @apply cursor-pointer font-bold rounded-xl p-3 bg-clr-secondary-1 text-clr-main border-2 border-clr-secondary-2
+    }
 }
 
 /* Global Classes */
