@@ -1,19 +1,17 @@
 {% extends 'base/base.html' %}
 
+{% block title %}STR Mindful | About Us{% endblock %}
+
 {% block content %}
-<div class="flex justify-center text-center">
-    <div class="p-5 my-1 bg-mindful-gray-100 border-4 border-mindful-gray-500 w-200 rounded-3xl">
-        <div class="m-3.5 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6">
-            <h1 class="font-bold text-lg">About Us</h1>
-        </div>
-        <div class="m-3.5 rounded-2xl border-2 border-mindful-blue-500 bg-mindful-blue-100 py-5 px-6">
-            Mindful is a commitee dedicated to improving the mental health and well-being of high school students.
-            <br>
-            Everyday you can complete a reflection about how you are feeling. Over time, these will all show up on your
-            <a href="{% url 'dashboard' %}" class="text-blue-500">dashboard</a> so you can look back on your reflections from previous days.
-            <br>
-            Be sure to check out some <a href="{% url 'resources' %}" class="text-blue-500">resources</a> for hotlines, counselling, or CBT courses.
-        </div>
+<div class="w-5/6 m-auto lg:w-1/2">
+    <h1 class="p-3 m-3 text-5xl font-bold text-center md:text-7xl md:text-left text-clr-accent-1">About Us</h1>
+    <div class="py-5 m-3 text-3xl text-clr-secondary-1">
+        Mindful is a commitee dedicated to improving the mental health and well-being of high school students.
+        <br>
+        Everyday you can complete a reflection about how you are feeling. Over time, these will all show up on your
+        <a href="{% url 'dashboard' %}" class="underline text-clr-accent-1">dashboard</a> so you can look back on your reflections from previous days.
+        <br>
+        Be sure to check out some <a href="{% url 'resources' %}" class="underline text-clr-accent-1">resources</a> for hotlines, counselling, or CBT courses.
     </div>
 </div>
 {% endblock %}
