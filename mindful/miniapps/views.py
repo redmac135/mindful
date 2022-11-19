@@ -5,3 +5,6 @@ from django.views.generic import TemplateView
 # Create your views here.
 class BreathingView(TemplateView):
     template_name = "miniapps/breathing.html"
+
+class CoffeeView(TemplateView):
+    template_name = "miniapps/coffee.html"
