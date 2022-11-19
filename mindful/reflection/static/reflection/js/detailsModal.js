@@ -94,7 +94,6 @@ function cancelDelete() {
 }
 
 function deleteEntry() {
-    //console.log("DELETEEE");
     fetch(url, {
         method: "delete",
         credentials: "same-origin",
